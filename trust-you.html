@@ -1,0 +1,128 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<!-- <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> -->
+<!-- <link rel="import" href="../paper-button/paper-button.html"> -->
+<link rel="import" href="../font-roboto/roboto.html">
+<!-- <link rel="import" href="../iron-icons/communication-icons.html"> -->
+<link rel="import" href="star-rating.html">
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="trust-you">
+	<template>
+		<style>
+			:host {
+				display: block;
+				
+				font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
+                
+				--trust-you-green-color: #7cb342;
+
+
+				--rating-icon-size: 16px;
+                --rating-icon-padding: 0px;
+                --rating-ink-color:var(--trust-you-green-color);
+                 --shade-dark: rgba(0, 0, 0, 0.87);
+                --shade-semidark: rgba(0, 0, 0, 0.54);
+                --shade-light: rgba(0, 0, 0, 0.38);
+                --shade-superlight: rgba(0, 0, 0, 0.18);
+			}
+			.container{
+				display: grid;
+				grid-template-columns: 55px 1fr;
+				grid-template-rows: 20px 18px 1fr;
+			}
+			.review-type {
+				font-size: 18px;
+				font-weight: 400;
+				margin: 0;
+				color: var(--shade-dark);
+			}
+			.review-type span{
+				display: inline-block;
+				width: 24px;
+				height: 14px;
+				background: url(images/tu-logo.png) no-repeat top center;
+			}
+			.rating{
+				grid-area: 1 / 1 / 4 / 2;
+			}
+			.tuLogo{
+				display: none;
+			}
+			.rating-icon {
+				display: inline-block;
+				color: #fff;
+				width: 44px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				background: var(--trust-you-green-color);
+				font-size: 24px;
+				position: relative;
+			}
+			.rating-icon span{
+			    position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 0;
+				height: 0;
+				border-top: 12px solid var(--trust-you-green-color);
+				border-right: 12px solid transparent;
+				transform: translateY(99%);
+			}
+			.rating-count{
+				font-size: 9px;
+				color: var(--shade-semidark);
+				margin: 0;
+			}
+		</style>
+
+		<div class="container">
+			<div class="rating">
+				<div class="rating-icon" aria-label="[[resource.ratingLabel]]">
+					[[rating]]
+					<span></span>
+				</div>
+			</div>
+			<h3 class="review-type">
+				[[reviewType]] <span></span>
+			</h3>
+			<star-rating rating="[[rating]]" class="star-rating"></star-rating>
+			<p class="rating-count">
+				[[reviewCount]] <span>[[resource.verifyLabel]] </span>[[resource.reviewsLabel]] 
+			</p>
+			<div class="tuLogo"></div>
+		</div>
+	</template>
+	<script>
+		class TrustYou extends Polymer.Element{
+			static get is(){
+				return 'trust-you';
+			} 
+			static get properties(){
+				return {
+					rating:Number,
+					reviewCount:Number,
+					reviewType:{
+						type:String
+					}
+				}
+			}
+		};
+
+    window.customElements.define(TrustYou.is, TrustYou);
+	</script>
+</dom-module>

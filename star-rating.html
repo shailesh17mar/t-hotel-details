@@ -1,0 +1,153 @@
+
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<dom-module id="star-rating">
+  <template>
+    <style>
+    :host {
+      display: block;
+      color: var(--rating-disabled-color, #dcdcdc);
+
+    }
+
+      [hidden]{
+       display: none!important; 
+      }
+    .stars {
+      display: inline-flex;
+      position: relative;
+    }
+    :host([hide-unselected]) .icon-container{
+      display: none;
+    }
+    :host([hide-unselected]) .icon-container.active{
+      display: block;
+    }
+    .stars .icon-container.active{
+      color: var(--rating-ink-color, #fecd39);
+    }
+    .stars .icon-container {
+      color: var(--rating-icon-color, --primary-text-color);
+      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      padding: var(--rating-icon-padding,2px);
+    }
+
+    .stars .stars_half__container {
+      position: absolute;
+      display: inline-flex;
+      left: 0;
+    }
+    .stars .stars_half__container .stars_half__spacer {
+      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      pointer-events: none;
+    }
+    .stars .stars_half__container .stars_half {
+      width: calc((var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2)/2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      overflow: hidden;
+      pointer-events: none;
+          align-items: flex-start;
+    display: flex;
+    }
+    .stars .stars_half iron-icon {
+      color: var(--rating-ink-color, --primary-text-color);
+      opacity: 1;
+      width: var(--rating-icon-size,28px);
+      height: var(--rating-icon-size,28px);
+      min-width: var(--rating-icon-size,28px);
+      min-height: var(--rating-icon-size,28px);
+      padding: var(--rating-icon-padding,2px);
+    }
+    </style>
+    <div class="stars">
+      <template is="dom-repeat" items="[[_convertArray(total)]]">
+        <iron-icon icon="[[icon]]" 
+          disabled$="[[readonly]]"
+          class$="[[_compareVals(rating,item)]]">
+        </iron-icon>
+      </template>
+      <div class="stars_half__container">
+        <template is="dom-repeat" items="[[_convertArray(rating)]]">
+          <div class="stars_half__spacer"></div>
+        </template>
+        <div class="stars_half" hidden$="[[_isInt(rating)]]">
+          <iron-icon icon="[[icon]]"></iron-icon>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class StarRating extends Polymer.Element {
+      static get is() { return 'star-rating'; }
+      static get properties() {
+        return {
+          /**
+          * icon: the icon to use (iron-icons)
+          * @type {String}
+          */
+          icon: {
+            type: String,
+            value: "star"
+          },
+
+          /**
+          * hideUnselected: the hideUnselected to use 
+          */
+          hideUnselected: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute:true
+          },
+          /**
+          * rating: numbers of star selected (reflectToAttribute)
+          */
+          rating: {
+            type: Number,
+            value: 1,
+            reflectToAttribute: true,
+            notify: true
+          },
+          
+          /**
+          * total: maximum number of stars selectable
+          */
+          total: {
+            type: Number,
+            value: 5,
+            reflectToAttribute: true
+          }
+        };
+      }
+      /**
+      * _compareVals: return active class for initial state
+      */
+      _compareVals(r,i) {
+        if (r >= i) {
+          return "active icon-container"
+        } else {
+          return "icon-container"
+        }
+      }
+      /**
+      * _convertArray: converts total to array for dom repeat from number
+      */
+      _convertArray(n) {
+        let array = [];
+        for(let i = 0; i < Math.floor(n); i++){
+          array.push(i+1);
+        }
+        return array;
+      }
+      /**
+      * _isInt: returns true if value is not divisible by 1
+      */
+      _isInt(n) {
+        return n%1?false:true;
+      }
+    }
+    window.customElements.define(StarRating.is, StarRating);
+  </script>
+</dom-module>

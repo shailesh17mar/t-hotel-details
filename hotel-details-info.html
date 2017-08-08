@@ -1,0 +1,224 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../font-roboto/roboto.html">
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+<dom-module id="hotel-details-info">
+    <template>
+            <style include="hotel-details-styles">
+
+        :host {
+            --info-header-font-size: 16px;
+            --info-header-font-color:var(--shade-dark);
+            --info-content-font-size: 14px;
+            --info-content-font-color:var(--shade-semidark);
+        }
+        
+        li {
+            padding-left: 10px;
+            margin: 10px 0;
+            position: relative;
+            line-height: 1.3;
+        }
+        li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--info-content-font-color);
+            font-size: 20px;
+            line-height: 20px;
+        }
+
+        h4{
+        	font-size: var(--info-header-font-size);
+        	color: var(--info-header-font-color);
+        	margin-bottom: 15px;
+            line-height: 24px;
+            @apply(--info-header);
+        }
+        a,p,li{
+        	text-decoration: none;
+        	font-size: var(--info-content-font-size);
+        	color: var(--info-content-font-color);
+
+            @apply(--info-content);
+        }
+        p{
+            line-height: 24px;
+        }
+        a{
+        	color: var(--link-color);
+        }
+        </style>
+        <template is="dom-if" if="{{!noHeading}}">
+            <h4>[[heading]]</h4>
+        </template>
+        <template is="dom-if" if="{{_findIfShow(listItems)}}">
+            <ul>
+                <template is="dom-repeat" items="[[_listItems]]">
+                    <li>[[item]]</li>
+                </template>
+                <a href="#" class="expand-button" on-click="_expandContent" hidden$="[[_findIfHidden(_actualCollapseLength)]]">
+					<template is="dom-if" if="{{!expanded}}">
+						More
+					</template>
+					<template is="dom-if" if="{{expanded}}">
+						Less
+					</template>
+				</a>
+            </ul>
+        </template>
+        <template is="dom-if" if="{{_findIfShow(textContent)}}">
+            <p>[[_textContent]]
+
+                
+				<span hidden$="[[_findIfHidden(_actualCollapseLength)]]">
+					<template is="dom-if" if="[[!expanded]]">...</template>
+	                <a href="#" class="expand-button" on-click="_expandContent">
+	                    <template is="dom-if" if="{{!expanded}}">
+	                        More
+	                    </template>
+	                    <template is="dom-if" if="{{expanded}}">
+	                        Less
+	                    </template>
+	                </a>	
+				</span>
+                
+            </p>
+        </template>
+    </template>
+    <script>
+    class HotelDetailsInfo extends Polymer.Element {
+        static get is() {
+            return 'hotel-details-info';
+        }
+
+        static get properties() {
+            return {
+
+                noHeading:{
+                    type: Boolean,
+                    value:false
+                },
+
+                // This is the heading component which is valid for both list and text
+                heading: {
+                    type: String,
+                    value: 'Heading'
+                },
+
+                //Pass an array of list items 
+                listItems: {
+                    type: Array,
+                    value: [],
+                    observer: '_concludeListItems'
+                },
+
+                //Pass a String
+                textContent: {
+                    type: String,
+                    value: '',
+                    observer: '_concludeTextContent'
+                },
+
+                //concluding length
+                collapseLength: {
+                    type: Number,
+                    value: 0
+                },
+
+                expanded: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                _actualCollapseLength: {
+                    type: Number,
+                    computed: '_concludeDefaultLength(collapseLength,listItems,textContent)'
+                },
+
+                _listItems: Array,
+
+                _textContent: String
+            }
+        }
+
+        _concludeDefaultLength(collapseLength, listItems, textContent) {
+            if (collapseLength > 0) {
+                return collapseLength;
+            } else {
+                if (!listItems.length && !textContent) {
+                    return 0;
+                } else if (listItems.length > 0) {
+                    this._concludeListItems();
+                    return 5
+                } else if (textContent.length > 0) {
+                    this._concludeTextContent();
+                    return 100;
+                }
+
+            }
+
+
+        }
+
+        _concludeListItems() {
+            // this._listItems = this.expanded ? this.listItems : (this.listItems.length > this.collapseLength? this.listItems.splice(0,this._actualCollapseLength): this.listItems);
+            let items = this.listItems.slice(0);
+            if (this.expanded) {
+                this._listItems = items;
+            } else {
+                if (items.length > this.collapseLength) {
+                    this._listItems = items.splice(0, this._actualCollapseLength);
+                } else {
+                    this._listItems = items;
+                }
+            }
+        }
+
+        _concludeTextContent() {
+            let text = this.textContent;
+            this._textContent = this.expanded ? text : (text.length > this.collapseLength ? text.split('').splice(0, this._actualCollapseLength).join('') : text);
+        }
+
+        _expandContent(e) {
+            e.preventDefault();
+
+            this.expanded = !this.expanded;
+
+            if (this.listItems.length > 0) {
+                this._concludeListItems();
+            } else if (this.textContent.length > 0) {
+                this._concludeTextContent();
+            }
+        }
+
+        _findIfHidden(_actualCollapseLength) {
+            if (this.listItems.length > 0) {
+                return _actualCollapseLength > this.listItems.length;
+            } else if (this.textContent.length > 0) {
+                return _actualCollapseLength > this.textContent.length;
+            }
+        }
+        _findIfShow(items){
+        	return items.length > 0;
+        }
+
+    }
+    window.customElements.define(HotelDetailsInfo.is, HotelDetailsInfo);
+    </script>
+</dom-module>

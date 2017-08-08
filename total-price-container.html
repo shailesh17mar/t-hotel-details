@@ -1,0 +1,88 @@
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="total-price-container">
+	<template>
+		<style  include="hotel-details-styles">
+			:host {
+				display: block;
+			}
+			.total-price-container{
+				padding: 15px;
+				background: var(--shade-superlight);
+				text-align: center;	
+
+			}
+			dl{
+				@apply(--layout-center-justified);
+
+			}
+			dd{
+				font-size: 24px;
+				line-height: 21px;
+				color: var(--shade-dark);
+				font-weight: bold;
+			}
+			dt{
+				font-size: 16px;
+				padding-right: 10px;
+				line-height: 21px;
+			}
+			h5{
+				font-size: 12px;
+				line-height: 23px;
+				font-weight: normal;	
+			}
+			@media (min-width: 550px){
+				.total-price-container{
+					@apply --layout-justified;
+					text-align: inherit;
+				}
+
+				dl{
+					@apply(--layout-start-justified);
+
+				}
+			}
+		</style>
+		<div class="row-md total-price-container">
+			<div class="price">
+				<dl class="row">
+					<dt>Total:</dt>
+					<dd>$2104</dd>
+				</dl>
+				<h5>Inclusive of all taxes and fees</h5>
+			</div>
+			<paper-button class="primary" raised>CONTINue to checkout</paper-button>
+		</div>
+	</template>
+	<script>
+		class TotalPriceContainer extends Polymer.Element {
+        static get is() {
+            return 'total-price-container';
+        }
+        static get properties() {
+            return {
+
+               
+
+            };
+        }
+
+    }
+    window.customElements.define(TotalPriceContainer.is, TotalPriceContainer);
+	</script>
+</dom-module>

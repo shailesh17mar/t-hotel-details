@@ -1,0 +1,184 @@
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+<link rel="import" href="hotel-room.html">
+
+<dom-module id="room-list">
+	<template>
+        <style include="hotel-details-styles">
+			:host {
+				display: block;
+			}
+			.link-style{
+				text-decoration: none;
+				font-size: 14px;
+				line-height: 1;
+				color: var(--link-color);
+			}
+			.price {
+				color: var(--shade-dark);
+				line-height: 21px;
+				font-size: 18px;
+				margin: 0 10px;
+			}
+			.price-row p {
+				font-size: 16px;
+				color: var(--shade-semidark);
+				line-height: 21px;
+			}
+			.toggle-header{
+				padding: 10px;
+				background: var(--shade-superlight);
+				color: var(--shade-semidark);
+				min-height: 50px;	
+			}
+			.collapse-content{
+				border: 1px solid var(--shade-superlight);
+			}
+			.header-option-row{
+				text-decoration: none;
+				line-height: 50px;	
+				color: inherit;	
+				width: 100%;
+			}
+			.header-option-row h3,
+			.header-option-row p{
+				margin-right: 5px;
+				line-height: 50px;
+				margin-bottom: 0;
+			}
+			p{
+				line-height: 24px;
+				color: var(--shade-semidark);
+			}
+			h3{
+				color: var(--shade-dark);
+				line-height: 24px;
+				font-size: 16px;
+				margin-bottom: 5px;
+			}
+
+			hotel-room { 
+				padding: 10px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border-bottom: 1px solid var(--shade-superlight);
+			}
+			.show-more-rooms {
+				height: 37px;
+				@apply --container-shadow;
+				@apply --layout-center-justified;
+				margin: 15px 0 0;
+			}
+			@media (min-width: 550px){
+				
+			.header {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+
+			    height: 50px;
+			    align-items: center;
+			    line-height: 30px;
+			    margin-bottom: 15px;
+            }
+            .header > div {
+				border-right: 1px solid var(--shade-superlight);
+                padding: 10px;
+            }
+				hotel-room{
+					padding: 0;
+					margin-bottom: 15px;
+				}
+				hotel-room:last-of-type{
+					margin-bottom: 0;
+				}
+
+				.collapse-content{
+					padding: 15px 10px;
+				}
+			}
+		</style>
+		<div class="toggle-header row-md">
+			<template is="dom-if" if="[[opened]]">
+				<a class="row header-option-row" href="#" on-click="toggleCollapse">
+					<h3>Room 1:</h3>
+					<p>Options for 2 guests</p>
+					
+				</a>
+			</template>
+			<template is="dom-if" if="[[!opened]]">
+				<div class="flex">
+					<h3>Room 1: Street View, 1 king bed | 2 guests</h3>
+					<p>Options: 47m | Air conditioning | Private Bathroom | Flat screen tv</p>
+				</div>
+				<div class="row price-row">
+					<p>Room 1 total:</p>
+					<h3 class="price">$1330</h3>
+					<a href="#" class="link-style" on-click="toggleCollapse">Change</a>
+				</div>
+			</template>
+		</div>
+		<iron-collapse id="collapse" opened="{{opened}}">
+	  <div class="collapse-content">
+    <div class="header room-grid not-mobile">
+        <div class="first">
+            <h5>Room type </h5>
+        </div>
+        <div class="second text-center">
+            <h5>Max</h5>
+        </div>
+        <div class="third ">
+            <h5>Options</h5>
+        </div>
+        <div class="fourth text-right">
+            <h5>Price</h5>
+        </div>
+        <div class="last text-right">
+            <h5>Total</h5>
+        </div>
+    </div>
+    <hotel-room></hotel-room>
+    <hotel-room></hotel-room>
+    <hotel-room></hotel-room>
+    <a href="#" class="link-style show-more-rooms row" role="button">SHOW MORE ROOMS</a>
+</div>
+
+</iron-collapse>
+	</template>
+	<script>
+		 class RoomList extends Polymer.Element {
+        static get is() {
+            return 'room-list';
+        }
+        static get properties() {
+            return {
+            	opened:{
+            		type:Boolean,
+            		value:false
+            	}
+               
+
+
+            };
+        }
+        toggleCollapse(e){
+        	e.preventDefault();
+
+        	this.$.collapse.toggle();
+        }
+    }
+    window.customElements.define(RoomList.is, RoomList);
+	</script>
+</dom-module>
