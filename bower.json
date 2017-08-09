@@ -11,7 +11,9 @@
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
-    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0"
+    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
+    "t-hotel-map": "shailesh17mar/t-hotel-map",
+    "t-image-corousel": "shailesh17mar/t-image-corousel"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

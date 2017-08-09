@@ -29,7 +29,7 @@ price = {
     priceLabel = "starting from",
     buttonLabel = "RESERVE"
   }
-  <t-hotel-details-heading 
+  <t-hotel-details-heading
       title="String"
       sub-title = "String"
       rating="4"
@@ -45,17 +45,17 @@ price = {
         <custom-style>
             <style include="hotel-details-styles">
             :host{
-                
+
                 --rating-icon-size: 20px;
                 --rating-icon-padding: 0px;
             }
-            
+
             iron-icon {
                 width: 20px;
                 height: 20px;
                 color: var(--shade-semidark);
             }
-            
+
             a {
                 text-decoration: none;
                 speak-numeral: digits;
@@ -65,16 +65,16 @@ price = {
             display: inline-block;
             margin-right: 0.5em;
         }*/
-            
+
             [icon="communication:location-on"] {
                 color: var(--link-color);
             }
-            
-            
+
+
             .right-container {
                 display: none;
             }
-            
+
             @media (min-width: 550px) {
                 .row-md {
                     @apply --layout-wrap;
@@ -258,6 +258,7 @@ price = {
         }
         _fireMapClick(e) {
             e.preventDefault();
+            document.querySelector('t-hotel-map')._showThumbnail = false;
             this.dispatchEvent(new CustomEvent('map-icon-clicked'));
         }
 

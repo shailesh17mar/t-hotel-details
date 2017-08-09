@@ -25,9 +25,9 @@ Example:
 		<style>
 			:host {
 				display: block;
-				
+
 				font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
-                
+
 				--trust-you-green-color: #7cb342;
 
 
@@ -102,7 +102,7 @@ Example:
 			</h3>
 			<star-rating rating="[[rating]]" class="star-rating"></star-rating>
 			<p class="rating-count">
-				[[reviewCount]] <span>[[resource.verifyLabel]] </span>[[resource.reviewsLabel]] 
+				[[reviewCount]] <span>[[resource.verifyLabel]] </span>[[resource.reviewsLabel]]
 			</p>
 			<div class="tuLogo"></div>
 		</div>
@@ -111,7 +111,7 @@ Example:
 		class TrustYou extends Polymer.Element{
 			static get is(){
 				return 'trust-you';
-			} 
+			}
 			static get properties(){
 				return {
 					rating:Number,
