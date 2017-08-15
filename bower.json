@@ -13,7 +13,8 @@
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "t-hotel-map": "shailesh17mar/t-hotel-map",
-    "t-image-corousel": "shailesh17mar/t-image-corousel"
+    "t-image-corousel": "shailesh17mar/t-image-corousel",
+    "iron-pages": "PolymerElements/iron-pages#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -21,6 +22,13 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "resolutions": {
-    "polymer": "^2.0.0"
+    "polymer": "^2.0.0",
+    "iron-icons": "^2.0.1",
+    "paper-icon-button": "^2.0.0",
+    "webcomponentsjs": "^v1.0.2",
+    "iron-flex-layout": "^2.0.0",
+    "paper-styles": "^2.0.0",
+    "iron-icon": "^2.0.1",
+    "iron-meta": "^2.0.2"
   }
 }

@@ -61,12 +61,12 @@ Example:
 		<div class="row-md total-price-container">
 			<div class="price">
 				<dl class="row">
-					<dt>Total:</dt>
+					<dt>[[resources.totalLabel]]:</dt>
 					<dd>$2104</dd>
 				</dl>
-				<h5>Inclusive of all taxes and fees</h5>
+				<h5>[[resources.inclusiveTaxesLabel]]</h5>
 			</div>
-			<paper-button class="primary" raised>CONTINue to checkout</paper-button>
+			<paper-button class="primary" raised>[[resources.checkoutButtonLabel]]</paper-button>
 		</div>
 	</template>
 	<script>
@@ -76,7 +76,7 @@ Example:
         }
         static get properties() {
             return {
-
+            	resources:{}
                
 
             };

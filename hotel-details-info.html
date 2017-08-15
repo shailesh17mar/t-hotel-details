@@ -66,6 +66,7 @@ Example:
         <template is="dom-if" if="{{!noHeading}}">
             <h4>[[heading]]</h4>
         </template>
+        <slot name="content">
         <template is="dom-if" if="{{_findIfShow(listItems)}}">
             <ul>
                 <template is="dom-repeat" items="[[_listItems]]">
@@ -99,6 +100,7 @@ Example:
                 
             </p>
         </template>
+        </slot>
     </template>
     <script>
     class HotelDetailsInfo extends Polymer.Element {
