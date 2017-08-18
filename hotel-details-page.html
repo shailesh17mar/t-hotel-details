@@ -46,7 +46,6 @@ Example:
             };
             --paper-tab: {
                 @apply --layout-flex-none;
-                color: #1976d2;
                 padding: 0 20px;
             };
         }
@@ -96,6 +95,9 @@ Example:
         .bottom-tabs {
             border-bottom: 1px solid var(--shade-superlight, rgba(0, 0, 0, 0.18));
         }
+        .bottom-tabs .iron-selected{
+            color: var(--link-color);
+        }
         .heading-label{
         	color: var(--shade-light);
         	font-size: 14px;
@@ -132,6 +134,9 @@ Example:
             }
             .popular-Amenties {
                 margin-bottom: 0;
+            }
+            t-hotel-map{
+                min-height: 190px;
             }
         }
 
