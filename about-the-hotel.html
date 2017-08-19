@@ -64,48 +64,36 @@ Example:
 
 		<div class="row-md flex-align-start-md ">
             <div class="margin-b hotel-description">
-                <hotel-details-info heading="Description" collapse-length="528" text-content="Showcasing an indoor theme park with a double-corkscrew roller coaster and circus-themed acts, Circus Circus Hotel Casino & Theme Park is an exciting place to stay and features 4 casinos that are open 24/7. Popular amenities, such as a Jacuzzi and an outdoor pool, make for a satisfying stay in Las Vegas. Rooms at Circus Circus Hotel Casino & Theme Park are modern and air conditioned, and offer a flat-screen TV, a private bathroom and a seating area. They provide an in-room safe, an alarm clock and wireless internet access.
-The Spa and Salon at ARIA offers a unique blend of services, products, and experiences. Distinctive design features combining Aji stone, water gardens, and natural light create a sense of warmth, calmness, and tranquility. The Spa features 50 treatment suites, sauna, and spa tub. Services offered at this spa include scrubs, wraps, facials, hydrotherapy and aromatherapy treatments, and massages.
-JEWEL Nightclub is now open at ARIA Resort & Casino. Spanning more than 24,000 square feet of precisely designed space, Hakkasan Group’s new nightlife experience, JEWEL, is as inviting as it is evocative. Experience an atmosphere of a rare ambient delight. Whether the headliner is a world class DJ or performer, JEWEL offers a multi-faceted experience for each guest.
-This celebrated concept from Mario Carbone, Rich Torrisi, and Jeff Zalaznick pays homage to the Italian-American restaurants of the mid-20th century – an era of glamour, showmanship, and tableside service"></hotel-details-info>
+                <hotel-details-info heading="[[resource.page.descriptionText]]" collapse-length="528" text-content="[[description]]"></hotel-details-info>
                 
             </div>
             <div class="margin-b popular-things-container">
-                <hotel-details-info heading="Point of interest" class="popular-things" list-items="[[dummyProp]]"></hotel-details-info>
+                <hotel-details-info heading="[[resource.page.pointOfInterest]]" class="popular-things" list-items="[[pointsOfInterest]]"></hotel-details-info>
             </div>
         </div>
         <div class="bottom-container row-md flex-align-start-md">
-        	<div class="margin-b item">
-        		<hotel-details-info heading="Point of interest" class="popular-things" list-items="[[dummyProp]]"></hotel-details-info>
-        	</div>
-        	<div class="margin-b item">
-        		<hotel-details-info heading="Point of interest" class="popular-things" list-items="[[dummyProp]]"></hotel-details-info>
-        	</div>
-        	<div class="margin-b item">
-        		<hotel-details-info heading="Point of interest" collapse-length="1"  class="popular-things margin-b" list-items="[[dummyProp]]"></hotel-details-info>
-        		<hotel-details-info collapse-length="1" heading="Point of interest" class="popular-things margin-b" list-items="[[dummyProp]]"></hotel-details-info>
-        		<hotel-details-info  collapse-length="1" heading="Point of interest" class="popular-things" list-items="[[dummyProp]]"></hotel-details-info>
-        	</div>
-        	<div class="margin-b item">
-        		<hotel-details-info collapsed-length="1" heading="Point of interest" class="popular-things" list-items="[[dummyProp]]"></hotel-details-info>
-        	</div>
+          <template is="dom-repeat" items="[[amenities]]">
+            <div class="margin-b item">
+              <hotel-details-info heading="[[item.type]]" class="popular-things" list-items="[[item.offerings]]"></hotel-details-info>
+            </div>
+          </template>
         </div>
-	</template>
-	<script>
-		class AboutTheHotel extends Polymer.Element{
-			static get is(){
-				return 'about-the-hotel';
-			} 
-			static get properties(){
-				return {
-					dummyProp:{
-						type:Array,
-						value: ["Brooklyn Bowl Las Vegas","Colosseum at Caesars Palace","Flamingo Wildlife Habitat","Forum Shops At Caesars Palace","Monorail - Harrah's / Imperial Palace","Fitness center access","Internet access","Phone calls","Additional inclusions","Premium TV channels","Pay movies","Hypo-allergenic bedding available"]
-					}
-				}
-			}
-		};
+  </template>
+  <script>
+class AboutTheHotel extends Polymer.Element{
+  static get is(){
+    return 'about-the-hotel';
+  } 
+  static get properties(){
+    return {
+      pointsOfInterest:Array,
+      resource: Object,
+      descrption: String,
+      amenities: Array
+    }
+  }
+};
 
-    window.customElements.define(AboutTheHotel.is, AboutTheHotel);
-	</script>
+window.customElements.define(AboutTheHotel.is, AboutTheHotel);
+  </script>
 </dom-module>

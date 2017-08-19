@@ -7,7 +7,6 @@
 <link rel="import" href="about-the-hotel.html">
 <link rel="import" href="total-price-container.html">
 
-<link rel="import" href="../t-image-corousel/t-image-corousel.html">
 <link rel="import" href="../t-hotel-map/t-hotel-map.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
@@ -153,11 +152,11 @@ Example:
         <hotel-details
         	price="[[hotelHeader.Price]]"
         	resource="[[hotelHeader.Resource]]"
-        	Hotel="[[Hotel]]"></hotel-details>
+        	hotel="[[hotel]]"></hotel-details>
         <div class="vertical-divider"></div>
         <div class="row-md margin-b-normal">
             <div class="carousel-container">
-                <t-image-corousel></t-image-corousel>
+                <slot name="gallery"></slot>
             </div>
             <div class="row column-md trust-you-area">
                 <div class="trust-you flex">
@@ -185,18 +184,18 @@ Example:
             </div>
         </div>
         <div class="not-mobile row-md flex-align-start-md ">
-                <hotel-details-info class="hotel-description" heading="[[resources.page.descriptionText]]" collapse-length="528" text-content="[[Hotel.descriptions.value]]"></hotel-details-info>
-            <hotel-details-info class="popular-things-container" heading="[[resources.page.poiLabel]]" class="popular-things" list-items="[[Hotel.poi]]"></hotel-details-info>
+                <hotel-details-info class="hotel-description" heading="[[resources.page.descriptionText]]" collapse-length="528" text-content="[[hotel.description]]"></hotel-details-info>
+            <hotel-details-info class="popular-things-container" heading="[[resources.page.pointOfInterest]]" class="popular-things" list-items="[[hotel.pointsOfInterest]]"></hotel-details-info>
         </div>
         <popular-amenities
         	class="popular-Amenties"
         	heading="[[resources.page.mostPopularAmenitiesLabel]]"
-        	popular-static-amenities="[[Hotel.popularStaticAmenities]]"></popular-amenities>
+        	popular-static-amenities="[[hotel.popularStaticAmenities]]"></popular-amenities>
         <div class="vertical-divider not-mobile"></div>
         <div class="search-container">
             Search widget
         </div>
-        <room-list></room-list>
+        <room-list rooms="[[hotel.rooms]]"></room-list>
         <total-price-container resources="[[resources.checkout]]"></total-price-container>
         <div class="mobile-view">
             <t-hotel-map></t-hotel-map>
@@ -207,7 +206,7 @@ Example:
         </paper-tabs>
         <iron-pages selected="{{_selectedBottomTab}}">
         	<section>
-        		<about-the-hotel></about-the-hotel>
+        		<about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resource]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]"></about-the-hotel>
         	</section>
         	<section>
         		Guest Review section
