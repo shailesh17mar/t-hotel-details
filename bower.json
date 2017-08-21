@@ -14,7 +14,9 @@
     "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "t-hotel-map": "nxtComponent/t-map",
     "t-image-corousel": "nxtComponent/t-image-gallery",
-    "iron-pages": "PolymerElements/iron-pages#^2.0.0"
+    "iron-pages": "PolymerElements/iron-pages#^2.0.0",
+    "credit-card-input": "IngressoRapidoWebComponents/credit-card-input#^1.0.9",
+    "gold-cc-input": "PolymerElements/gold-cc-input#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -29,6 +31,7 @@
     "webcomponentsjs": "^v1.0.2",
     "paper-styles": "^2.0.0",
     "iron-flex-layout": "^2.0.0",
-    "iron-meta": "^2.0.2"
+    "iron-meta": "^2.0.2",
+    "paper-input": "^2.0.1"
   }
 }

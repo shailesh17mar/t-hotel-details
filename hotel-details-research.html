@@ -1,0 +1,70 @@
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="hotel-details-research">
+	<template>
+		<style include="hotel-details-styles">
+			:host {
+				display: block;
+			}
+			.body{
+				@apply --layout-center;
+				@apply --layout-center-justified;
+
+				background: var(--shade-superlight);
+				padding: 20px;
+				text-align: center;
+			}
+			h4{
+				font-size: 18px;
+				line-height: 30px;
+				color: var(--shade-dark);
+			}
+			a{
+				text-decoration: none;
+				color: var(--link-color);
+				line-height: 30px;
+				margin: 0 15px;
+			}
+		</style>
+		<div class="row-md body">
+			<h4>[[resources.researchLabel]]</h4>
+			<a href="#" role="button" on-click="_triggerResearch">[[resources.researchText]]</a>
+		</div>
+		
+	</template>
+	<script>
+		class HotelDetailsResearch extends Polymer.Element {
+        static get is() {
+            return 'hotel-details-research';
+        }
+        static get properties() {
+            return {
+            	resources:Object
+
+
+            }
+        }
+        _triggerResearch(e){
+        	e.preventDefault();
+
+        	this.dispatchEvent(new CustomEvent('research-clicked'));
+        }
+    };
+
+    window.customElements.define(HotelDetailsResearch.is, HotelDetailsResearch);
+	</script>
+</dom-module>

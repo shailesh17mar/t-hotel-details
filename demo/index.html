@@ -10,7 +10,7 @@
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html"> -->
 		<link rel="import" href="../hotel-details-page.html">
-		<link rel="import" href="../../t-image-corousel/t-image-corousel.html">
+		<!-- <link rel="import" href="../../t-image-corousel/t-image-corousel.html"> -->
 		<custom-style>
 			<style is="custom-style" include="hotel-details-styles">
 html,
@@ -75,6 +75,7 @@ document.addEventListener('WebComponentsReady', function(e) {
 			"lat": 36.113,
 			"long": -114.925
 		},
+		"cardsSupported":["mastercard","visa","discover","amex","jcb"],
 		"amenities": [{
 			"type": "Hotel Amenities",
 			"offerings": [
@@ -102,20 +103,20 @@ document.addEventListener('WebComponentsReady', function(e) {
 				"Air conditioning",
 				"Free news paper"
 			]
-		}, {
-			"type": "Parking",
-			"offerings": [
-				"Video-game console",
-				"Air conditioning",
-				"Free news paper"
-			]
-		}, {
-			"type": "Pets",
-			"offerings": [
-				"Video-game console",
-				"Air conditioning",
-				"Free news paper"
-			]
+		// }, {
+		// 	"type": "Parking",
+		// 	"offerings": [
+		// 		"Video-game console",
+		// 		"Air conditioning",
+		// 		"Free news paper"
+		// 	]
+		// }, {
+		// 	"type": "Pets",
+		// 	"offerings": [
+		// 		"Video-game console",
+		// 		"Air conditioning",
+		// 		"Free news paper"
+		// 	]
 		}],
 			"photoUrls": [
 
@@ -274,6 +275,10 @@ document.addEventListener('WebComponentsReady', function(e) {
 			"totalLabel":"Total",
 			"inclusiveTaxesLabel":"Inclusive of all taxes and fees",
 			"checkoutButtonLabel":"CONTINue to checkout"
+		},
+		hotelResearch:{
+			researchLabel: "Didn't find the right property?",
+			researchText:"CONTINUE TO SEARCH"
 		}
 	}
 	hotelDetailsPage.hotelExtra = {

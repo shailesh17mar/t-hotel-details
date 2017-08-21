@@ -24,6 +24,23 @@ Example:
 			.margin-b{
 				margin-bottom: 15px;
 			}
+			.info-child{
+				--info-header-font-size: 14px;
+				--info-header:{
+					line-height: 10px;
+					margin-bottom: 5px;
+				};
+				margin-bottom: 5px;
+			}
+			.card-item{
+				width: 40px;
+				height: auto;
+				margin-top: 5px;
+				margin-right: 5px;
+			}
+			.card-item:last-of-type{
+				margin-right: 0;
+			}
 			@media (min-width: 550px){
 
 	            .hotel-description{
@@ -77,6 +94,29 @@ Example:
               <hotel-details-info heading="[[item.type]]" class="popular-things" list-items="[[item.offerings]]"></hotel-details-info>
             </div>
           </template>
+          	<div class="margin-b item">
+              <hotel-details-info heading="Hotel Policies" class="popular-things" >
+              	<div slot="content">
+	              <hotel-details-info class="info-child" heading="Check In" class="popular-things" text-content="From 3:00 pm">
+	              	
+	              </hotel-details-info>
+	              <hotel-details-info class="info-child" heading="Check Out" class="popular-things" text-content="Untill 12:00 pm">
+	              	
+	              </hotel-details-info>
+	              <hotel-details-info class="info-child" heading="Cancellation/prepayment" class="popular-things" text-content="Cancellation and prepayment policies may vary according to the room type. Please check what room conditions may apply when selecting the room above.">
+	              	
+	              </hotel-details-info>
+	              <hotel-details-info class="info-child" heading="Cards accepted by this property" >
+	              		<div slot="content">
+	              			<template is="dom-repeat" items="[[cardsSupported]]">
+	              				<img src="../images/[[item]].png"  class="card-item" alt="[[item]]" />
+	              			</template>
+	              		</div>
+	              </hotel-details-info>
+              		
+              	</div>
+              </hotel-details-info>
+            </div>
         </div>
   </template>
   <script>
@@ -89,7 +129,8 @@ class AboutTheHotel extends Polymer.Element{
       pointsOfInterest:Array,
       resource: Object,
       descrption: String,
-      amenities: Array
+      amenities: Array,
+      cardsSupported:Array
     }
   }
 };

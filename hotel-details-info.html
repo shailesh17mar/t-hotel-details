@@ -45,8 +45,8 @@ Example:
         h4{
         	font-size: var(--info-header-font-size);
         	color: var(--info-header-font-color);
-        	margin-bottom: 15px;
-            line-height: 24px;
+        	margin-bottom: 10px;
+            line-height: 20px;
             @apply(--info-header);
         }
         a,p,li{
@@ -211,9 +211,9 @@ Example:
 
         _findIfHidden(_actualCollapseLength) {
             if (this.listItems.length > 0) {
-                return _actualCollapseLength > this.listItems.length;
+                return _actualCollapseLength >= this.listItems.length;
             } else if (this.textContent.length > 0) {
-                return _actualCollapseLength > this.textContent.length;
+                return _actualCollapseLength >= this.textContent.length;
             }
         }
         _findIfShow(items){

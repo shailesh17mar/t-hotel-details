@@ -6,6 +6,7 @@
 <link rel="import" href="popular-amenities.html">
 <link rel="import" href="about-the-hotel.html">
 <link rel="import" href="total-price-container.html">
+<link rel="import" href="hotel-details-research.html">
 
 <link rel="import" href="../t-hotel-map/t-hotel-map.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
@@ -135,7 +136,7 @@ Example:
                 margin-bottom: 0;
             }
             t-hotel-map{
-                min-height: 190px;
+                min-height: 180px;
             }
         }
 
@@ -206,14 +207,17 @@ Example:
         </paper-tabs>
         <iron-pages selected="{{_selectedBottomTab}}">
         	<section>
-        		<about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resource]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]"></about-the-hotel>
+        		<about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resource]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]" cards-supported="[[hotel.cardsSupported]]"></about-the-hotel>
         	</section>
         	<section>
         		Guest Review section
         	</section>
         </iron-pages>
+        
+        <hotel-details-research
+            resources="[[resources.hotelResearch]]"></hotel-details-research>
         <!-- <hotel-details-info class="oldInfo"></hotel-details-info>
-
+        
         <hotel-details-info id="text"></hotel-details-info>
         <hotel-room id="hotelRoom"></hotel-room> -->
     </div>
