@@ -11,13 +11,13 @@ A comment describing this element
 
 Example:
 
-    <my-elem></my-elem>
+<my-elem></my-elem>
 
 Example:
 
-    <my-elem>
-      <h2>Hello my-elem</h2>
-    </my-elem>
+<my-elem>
+<h2>Hello my-elem</h2>
+</my-elem>
 
 @demo demo/index.html
 -->
@@ -25,69 +25,69 @@ Example:
 <dom-module id="popular-amenities">
 	<template>
 		<style>
-			:host {
-				display: block;
-	            font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
+		:host {
+			display: block;
+			font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
 
 
-	            --link-color: rgba(25, 118, 210, 0.9);
-	            --shade-dark: rgba(0, 0, 0, 0.87);
-	            --shade-semidark: rgba(0, 0, 0, 0.54);
-	            --shade-light: rgba(0, 0, 0, 0.38);
-	            --shade-superlight: #f0f0f0;
- 				
- 				--popular-amenities-header-font-size: 16px;
-	            --popular-amenities-header-font-color:var(--shade-dark);
-	            --popular-amenities-content-font-size: 14px;
-	            --popular-amenities-content-font-color:var(--shade-semidark);
-				
-				background: var(--popular-amenities-bg,var(--shade-superlight));
-	            padding: 10px;
+			--link-color: rgba(25, 118, 210, 0.9);
+			--shade-dark: rgba(0, 0, 0, 0.87);
+			--shade-semidark: rgba(0, 0, 0, 0.54);
+			--shade-light: rgba(0, 0, 0, 0.38);
+			--shade-superlight: #f0f0f0;
+
+			--popular-amenities-header-font-size: 16px;
+			--popular-amenities-header-font-color:var(--shade-dark);
+			--popular-amenities-content-font-size: 14px;
+			--popular-amenities-content-font-color:var(--shade-semidark);
+
+			background: var(--popular-amenities-bg,var(--shade-superlight));
+			padding: 10px;
+		}
+		ul,
+		li,h4{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		li{
+			display: inline-block;
+			margin-right: 10px;
+			line-height: 28px;
+		}
+
+		h4{
+			font-size: var(--popular-amenities-header-font-size);
+			color: var(--popular-amenities-header-font-color);
+			margin-bottom: 10px;
+		}
+		span{
+			display: none;
+			font-size: var(--popular-amenities-content-font-size);
+			color: var(--popular-amenities-content-font-color);
+		}
+		iron-icon{
+			color: var(--popular-amenities-icon-color,var(--shade-semidark));
+			width: var(--popular-amenities-icon-size,20px);
+			height: var(--popular-amenities-icon-size,20px);
+		}
+		@media (min-width: 550px) {
+			li span{
+				display: inline-block;
+				padding-left: 5px;
 			}
-			ul,
-	        li,h4{
-	            margin: 0;
-	            padding: 0;
-	            list-style: none;
-	        }
-	        li{
-	        	display: inline-block;
-	        	margin-right: 10px;
-	        	line-height: 28px;
-	        }
-
-	        h4{
-	        	font-size: var(--popular-amenities-header-font-size);
-	        	color: var(--popular-amenities-header-font-color);
-	        	margin-bottom: 10px;
-	        }
-	        span{
-	        	display: none;
-	        	font-size: var(--popular-amenities-content-font-size);
-	        	color: var(--popular-amenities-content-font-color);
-	        }
-	        iron-icon{
-	        	color: var(--popular-amenities-icon-color,var(--shade-semidark));
-	        	width: var(--popular-amenities-icon-size,20px);
-	        	height: var(--popular-amenities-icon-size,20px);
-	        }
-	        @media (min-width: 550px) {
-	        	li span{
-		        	display: inline-block;
-		        	padding-left: 5px;
-		        }
-	        }
+		}
 		</style>
 		<h4>[[heading]]</h4>
 		<ul>
-			<template is="dom-repeat" items="{{popularStaticAmenities}}">
+			<template is="dom-repeat" items="[[popularStaticAmenities]]">
 				<li>
 					<iron-icon title="[[item.name]]" aria-label="[[item.name]]" icon="[[item.icon]]"></iron-icon>
 					<span>[[item.name]]</span>
 				</li>
 			</template>
 		</ul>
-		
+
 	</template>
 	<script>
 	class PopularAmenities extends Polymer.Element{
@@ -100,7 +100,7 @@ Example:
 
 				heading: {
 					type:String,
-					value:'Some heading'
+					value:''
 				},
 
 				popularStaticAmenities: Array

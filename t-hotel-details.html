@@ -1,0 +1,254 @@
+<link rel="import" href="hotel-details.html">
+<link rel="import" href="hotel-details-info.html">
+<!-- <link rel="import" href="trust-you.html"> -->
+<link rel="import" href="hotel-room.html">
+<link rel="import" href="room-list.html">
+<link rel="import" href="popular-amenities.html">
+<link rel="import" href="about-the-hotel.html">
+<link rel="import" href="total-price-container.html">
+<link rel="import" href="hotel-details-research.html">
+
+<link rel="import" href="../t-hotel-map/t-hotel-map.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<!--
+A comment describing this element
+
+Example:
+
+<my-elem></my-elem>
+
+Example:
+
+<my-elem>
+<h2>Hello my-elem</h2>
+</my-elem>
+
+@demo demo/index.html
+-->
+<dom-module id="t-hotel-details">
+  <template>
+    <style include="hotel-details-styles">
+    :host {
+      display: block;
+    }
+
+    #hotelRoom {
+      margin-top: 10px;
+    }
+
+    .host {
+      @apply(--layout-vertical);
+      padding: 20px;
+      --paper-tabs-selection-bar-color: #1976d2;
+      --paper-tab-content-unselected: {
+        color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
+      };
+      --paper-tab: {
+        @apply --layout-flex-none;
+        padding: 0 20px;
+      };
+    }
+
+    .carousel-container {
+      height: 250px;
+    }
+
+    .map-container {
+      height: 210px;
+    }
+    .map-container .column{
+      height: 100%;
+    }
+
+    .extra-detail iron-icon {
+      padding: 6px;
+      height: 30px;
+      width: 30px;
+      min-width: 30px;
+      border-radius: 50%;
+      background: var(--trust-you-green-color, #7cb342);
+      color: #fff;
+      margin: 5px;
+    }
+
+    .extra-detail p {
+      font-size: 16px;
+      color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
+    }
+
+    .popular-Amenties {
+      margin: 15px 0;
+    }
+
+    .search-container {
+      height: 200px;
+      width: 100%;
+      background: #ccc;
+      margin-bottom: 15px;
+    }
+
+    total-price-container {
+      margin: 15px 0;
+    }
+
+    .bottom-tabs {
+      border-bottom: 1px solid var(--shade-superlight, rgba(0, 0, 0, 0.18));
+    }
+    .bottom-tabs .iron-selected{
+      color: var(--link-color);
+    }
+    .heading-label{
+      color: var(--shade-light);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    @media (min-width: 550px) {
+      .carousel-container {
+        height: 400px;
+        margin-right: 15px;
+        @apply --layout-flex-9;
+      }
+      .extra-detail iron-icon {
+        margin-left: 0;
+      }
+      .map-container {
+        min-width: 200px;
+        width: 100%;
+      }
+      .trust-you-area {
+        @apply --layout-self-stretch;
+        @apply --layout-start;
+        @apply --layout-flex-3;
+      }
+      .hotel-description {
+        --info-header-font-size: 18px;
+        @apply --layout-flex-9;
+        margin-right: 15px;
+      }
+      .popular-things-container {
+        --info-header-font-size: 18px;
+
+        @apply --layout-flex-3;
+      }
+      .popular-Amenties {
+        margin-bottom: 0;
+      }
+      t-hotel-map{
+        min-height: 180px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .carousel-container {
+        height: 555px;
+      }
+      .extra-detail {
+        margin-bottom: 10px;
+      }
+    }
+    </style>
+    <div class="host">
+
+      <hotel-details
+      resource="[[resources]]"
+      hotel="[[hotel]]">
+    </hotel-details>
+
+    <div class="vertical-divider"></div>
+    <div class="row-md margin-b-normal">
+      <div class="carousel-container">
+        <slot name="gallery"></slot>
+      </div>
+      <div class="row column-md trust-you-area">
+        <div class="trust-you flex">
+
+          <iframe class="not-mobile" src="http://api.trustyou.com/hotels/674fa44c-1fbd-4275-aa72-a20f262372cd/seal.html?size=xl" width="100%" ></iframe>
+          <iframe class="mobile-view" src="http://api.trustyou.com/hotels/674fa44c-1fbd-4275-aa72-a20f262372cd/seal.html?size=m" width="100%" height="55" frameborder="0" scrolling="no" style="overflow: hidden;"></iframe>
+        </div>
+        <!-- <trust-you class="flex" rating="3.5" review-type="EXCELLENT" review-count="1375"></trust-you> -->
+        <div class="row column-md extra-detail not-tablet">
+          <template is="dom-repeat" items="[[hotelExtra.extraItems]]">
+            <div class="detail-item row-md">
+              <iron-icon icon="[[item.iconType]]"></iron-icon>
+              <p class="not-mobile">[[item.label]]</p>
+            </div>
+          </template>
+        </div>
+        <div class="map-container not-mobile">
+          <div class="column">
+            <h2 class="heading-label">[[resources.page.mapViewLabel]]</h2>
+            <div class="flex-item">
+              <t-hotel-map></t-hotel-map>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="not-mobile row-md flex-align-start-md ">
+      <hotel-details-info class="hotel-description" heading="[[resources.description]]" collapse-length="528" text-content="[[hotel.description]]"></hotel-details-info>
+      <hotel-details-info class="popular-things-container" heading="[[resources.pointOfInterest]]" class="popular-things" list-items="[[hotel.pointsOfInterest]]"></hotel-details-info>
+    </div>
+
+    <popular-amenities
+    class="popular-Amenties"
+    heading="[[resources.mostPopularAmenitiesLabel]]"
+    popular-static-amenities="[[popularStaticAmenities]]">
+  </popular-amenities>
+
+  <div class="vertical-divider not-mobile"></div>
+  <div class="search-container">
+    Search widget
+  </div>
+  <room-list rooms="[[hotel.rooms]]"></room-list>
+  <total-price-container resources="[[resources.checkout]]"></total-price-container>
+  <div class="mobile-view">
+    <t-hotel-map></t-hotel-map>
+  </div>
+  <paper-tabs selected="{{_selectedBottomTab}}" class="bottom-tabs">
+    <paper-tab>About the hotel</paper-tab>
+    <paper-tab>Guest Reviews</paper-tab>
+  </paper-tabs>
+  <iron-pages selected="{{_selectedBottomTab}}">
+    <section>
+      <about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resource]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]" cards-supported="[[hotel.cardsSupported]]"></about-the-hotel>
+    </section>
+    <section>
+      Guest Review section
+    </section>
+  </iron-pages>
+
+  <hotel-details-research
+  resources="[[resources.hotelResearch]]"></hotel-details-research>
+  <!-- <hotel-details-info class="oldInfo"></hotel-details-info>
+
+  <hotel-details-info id="text"></hotel-details-info>
+  <hotel-room id="hotelRoom"></hotel-room> -->
+</div>
+</template>
+
+<script>
+class THotelDetails extends Polymer.Element {
+  static get is() {
+    return 't-hotel-details';
+  }
+  static get properties() {
+    return {
+      //all HotelHeader Data
+      hotelHeader:{},
+      hotel: Object,
+      resources: Object,
+      popularStaticAmenities: Array,
+      _selectedBottomTab:{
+        type:Number,
+        value:0
+      }
+
+    }
+  }
+};
+
+window.customElements.define(THotelDetails.is, THotelDetails);
+</script>
+</dom-module>
