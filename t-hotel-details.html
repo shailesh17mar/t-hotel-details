@@ -163,15 +163,14 @@ Example:
       </div>
       <div class="row column-md trust-you-area">
         <div class="trust-you flex">
-
-          <iframe class="not-mobile" src="http://api.trustyou.com/hotels/674fa44c-1fbd-4275-aa72-a20f262372cd/seal.html?size=xl" width="100%" ></iframe>
-          <iframe class="mobile-view" src="http://api.trustyou.com/hotels/674fa44c-1fbd-4275-aa72-a20f262372cd/seal.html?size=m" width="100%" height="55" frameborder="0" scrolling="no" style="overflow: hidden;"></iframe>
+          <iframe class="not-mobile" src="http://api.trustyou.com/hotels/[[hotel.trustyouId]]/seal.html?size=xl" width="100%" ></iframe>
+          <iframe class="mobile-view" src="http://api.trustyou.com/hotels/[[hotel.trustyouId]]/seal.html?size=m" width="100%" height="55" frameborder="0" scrolling="no" style="overflow: hidden;"></iframe>
         </div>
-        <!-- <trust-you class="flex" rating="3.5" review-type="EXCELLENT" review-count="1375"></trust-you> -->
+      <!-- <trust-you class="flex" rating="3.5" review-type="EXCELLENT" review-count="1375"></trust-you> -->
         <div class="row column-md extra-detail not-tablet">
-          <template is="dom-repeat" items="[[hotelExtra.extraItems]]">
+          <template is="dom-repeat" items="[[hotel.attentionHooks]]">
             <div class="detail-item row-md">
-              <iron-icon icon="[[item.iconType]]"></iron-icon>
+              <iron-icon icon="[[item.icon]]"></iron-icon>
               <p class="not-mobile">[[item.label]]</p>
             </div>
           </template>
@@ -180,7 +179,7 @@ Example:
           <div class="column">
             <h2 class="heading-label">[[resources.page.mapViewLabel]]</h2>
             <div class="flex-item">
-              <t-hotel-map></t-hotel-map>
+              <t-hotel-map points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resources.hotelMap]]" center="[[hotel.geoCode]]" heading="[[hotel.name]]" sub-heading="[[hotel.address]]" location-name="[[hotel.address]]" location-details="[[hotel.address]]" enable-nearby enable-directions></t-hotel-map>
             </div>
           </div>
         </div>
@@ -193,7 +192,7 @@ Example:
 
     <popular-amenities
     class="popular-Amenties"
-    heading="[[resources.mostPopularAmenitiesLabel]]"
+    heading="[[resources.mostPopularAmenities]]"
     popular-static-amenities="[[popularStaticAmenities]]">
   </popular-amenities>
 
@@ -201,10 +200,10 @@ Example:
   <div class="search-container">
     Search widget
   </div>
-  <room-list rooms="[[hotel.rooms]]"></room-list>
+  <room-list count="[[rooms.count]]" room-types="[[rooms.types]]"></room-list>
   <total-price-container resources="[[resources.checkout]]"></total-price-container>
   <div class="mobile-view">
-    <t-hotel-map></t-hotel-map>
+    <t-hotel-map points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resources.hotelMap]]" center="[[hotel.geoCode]]" heading="[[hotel.name]]" sub-heading="[[hotel.address]]" location-name="[[hotel.address]]" location-details="[[hotel.address]]" enable-nearby enable-directions></t-hotel-map>
   </div>
   <paper-tabs selected="{{_selectedBottomTab}}" class="bottom-tabs">
     <paper-tab>About the hotel</paper-tab>
@@ -212,7 +211,7 @@ Example:
   </paper-tabs>
   <iron-pages selected="{{_selectedBottomTab}}">
     <section>
-      <about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resource]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]" cards-supported="[[hotel.cardsSupported]]"></about-the-hotel>
+      <about-the-hotel points-of-interest="[[hotel.pointsOfInterest]]" resource="[[resources]]"  description="[[hotel.description]]" amenities="[[hotel.amenities]]" cards-supported="[[hotel.cardsSupported]]"></about-the-hotel>
     </section>
     <section>
       Guest Review section

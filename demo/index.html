@@ -295,22 +295,30 @@
 
         tHotelDetails.hotel = {
           "id": "55610",
+          "trustyouId": "674fa44c-1fbd-4275-aa72-a20f262372cd",
           "name": "THE WESTIN LAKE LAS VEGAS RESORT &amp; SPA",
           "rating": 5,
           "distance": 13.86,
           "address": "101 MONTELAGO BOULEVARD  HENDERSON",
           "phoneNumber": "702 567 1234",
           "price": {
-		bookPrice : '$402',
-		originalPrice : '$459',
-		discount : '25%'
-	},
+            bookPrice : '$402',
+            originalPrice : '$459',
+            discount : '25%'
+          },
           "description": "The luxury hotel radiates a Moroccan atmosphere and comprises a total of 493 rooms spread over 9 floors. Amongst the hotel's facilities count an air-conditioned lobby with a 24-hour reception desk, lift access, a hotel safe, a cloakroom and a currency exchange desk. Further amenities include a newspaper stand, a range of shops, a hairdressing salon, a casino, a kids' club, and free car parking spaces. Dining options include a cozy bar and a pleasing restaurant. Guests may also make use of the public Internet access in addition to the laundry and 24-hour room services. Self and valet parking, secure golf bag storage, concierge-assisted boarding passes, and intra-resort on-demand transportation are also offered.",
           "heroImageUrl": "http://d3mj096p5q0e20.cloudfront.net/ti/HBD/55610/043509a_hb_a_001.jpg",
           "geoCode": {
-            "lat" : 36.113,
-            "long" : -114.925
+            "latitude" : 36.113,
+            "longitude" : -114.925
           },
+          attentionHooks : [{
+            icon: 'maps:train',
+            label: 'Close to public transport'
+          }, {
+            icon: 'notification:wc',
+            label: 'Excellent choice for family'
+          }],
           "amenities": [
             {
               "category":"Parking",
@@ -357,6 +365,64 @@
             "icon": "places:spa"
           }
         ];
+
+        tHotelDetails.rooms = {
+          count:2,
+          types: [
+            {
+
+              "id": "ad234dw",
+              "name": "Pavilion",
+              "description": "Pavilion with 1 bed(s)",
+              "quantity": 1,
+              "isPrepaid": true,
+              "guaranteeRequired": false,
+              "depositRequired": false,
+              "policies": [
+                {
+                  "description": "Minimum age for check in is 21 years old with valid id and credit card",
+                  "isQuantifiable": false,
+                  "window": null,
+                  "penalty": null,
+                  "type": "Disclaimer"
+                }
+              ],
+              "fare": {
+                "type": "Published",
+                "code": null,
+                "currency" : "USD",
+                "baseFare" : 26.58,
+                "discount":10.00,
+                "fees" : [
+                  {
+                    "type": "Agency",
+                    "amount" : 10,
+                  }
+                ],
+                "totalFee":10.00,
+                "totalTax" : 5.58,
+                "totalFare" : 26.58
+              },
+              "type": "1313399_12532330_9094073_2_1_0",
+              "roomOccupancyTypes": [
+                "|1|1:A:25|"
+              ],
+              "dailyRates": [ "$45", "$45", "$50", "$45"],
+              "inclusions": [
+                "Resort Fee for USD 17.90 will be charged by hotel."
+              ],
+              "isPreferred": false,
+              "deals": null,
+              "source": {
+                "id": 103,
+                "name": "TouricoTGS Test"
+              },
+              "areExtraTaxesApplicable": false,
+              "roomImages":[]
+            }
+          ]
+        } ;
+
         tHotelDetails.resources = {
           "room" : {
             "guests" : "Guests",
@@ -397,7 +463,16 @@
           "more" : "More",
           "foundRightProperty" : "Didn't find the right property?",
           "reserveNowButton" : "Reserve Now",
-          "continueSearch" : "CONTINUE TO SEARCH"
+          "continueSearch" : "CONTINUE TO SEARCH",
+          "hotelMap": {
+            "reserveNowButton" : "Reserve Now",
+            "nearbyButtonLabel" : "Nearby",
+            "hotelButtonLabel" : "Hotel",
+            "startAddressLabel" : "Start Address",
+            "directionsButtonLabel" : "Get Directions",
+            "endAddressLabel" : "End Address",
+            "pointsOfInterest" : "Points of interest"
+          }
         };
 
         tGallery.tilesEnabled = true;
