@@ -1,430 +1,230 @@
 <!-- <!doctype html> -->
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-  <title>hotel-details demo</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <!--
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html"> -->
-  <link rel="import" href="../t-hotel-details.html">
-  <link rel="import" href="../../t-image-corousel/t-image-corousel.html">
-  <custom-style>
-    <style is="custom-style" include="hotel-details-styles">
-    html,
-    body {
-      margin: 0;
-      font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
-    }
-
-    iframe {
-      overflow: hidden;
-      border: 0;
-    }
-
-    body {}
-
-      trust-you {}
-        </style>
-      </custom-style>
-    </head>
-
-    <body>
-      <t-hotel-details>
-        <t-image-corousel slot="gallery"></t-image-corousel>
-      </t-hotel-details>
-
-      <script>
-      document.addEventListener('WebComponentsReady', function(e) {
-        console.log('components ready');
-        let popularAmenties = document.querySelector('popular-amenities');
-        let popularthings = document.querySelector('.popular-things');
-        let hotelDetailsPage = document.querySelector('t-hotel-details');
-        let tHotelDetails = document.querySelector('t-hotel-details');
-        let tGallery = document.querySelector('t-image-corousel');
-        hotelDetails = {};
-        hotelDetails.Price = {
-          bookPrice: '$402',
-          originalPrice: '$459',
-          discount: '25%'
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>hotel-details demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <!--
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html"> -->
+    <link rel="import" href="../t-hotel-details.html">
+    <link rel="import" href="../../t-image-corousel/t-image-corousel.html">
+    <custom-style>
+      <style is="custom-style" include="hotel-details-styles">
+        html,
+        body {
+          margin: 0;
+          font-family: var(--primary-font-family, 'Roboto', 'Noto', sans-serif);
         }
-        hotelDetails.Resource = {
-          discountLabel: "discount",
-          priceAriaLabel: "Price starting from",
-          priceLabel: "starting from",
-          buttonLabel: "RESERVE",
-          cityCenterText: "City Center",
-          unitMile: "Mile",
-          telephone: "Call the number"
+
+        iframe {
+          overflow: hidden;
+          border: 0;
         }
-        hotelDetailsPage.hotel = {
-          "id": "55610",
-          "name": "THE WESTIN LAKE LAS VEGAS RESORT &amp; SPA",
-          "rating": 5,
-          "address": "101 MONTELAGO BOULEVARD  HENDERSON",
-          "phoneNumber": "702 567 1234",
-          "distance": 13.86,
-          "description":"The luxury hotel radiates a Moroccan atmosphere and comprises a total of 493 rooms spread over 9 floors. Amongst the hotel's facilities count an air-conditioned lobby with a 24-hour reception desk, lift access, a hotel safe, a cloakroom and a currency exchange desk. Further amenities include a newspaper stand, a range of shops, a hairdressing salon, a casino, a kids' club, and free car parking spaces. Dining options include a cozy bar and a pleasing restaurant. Guests may also make use of the public Internet access in addition to the laundry and 24-hour room services. Self and valet parking, secure golf bag storage, concierge-assisted boarding passes, and intra-resort on-demand transportation are also offered. \
-          Showcasing an indoor theme park with a double-corkscrew roller coaster and circus-themed acts, Circus Circus Hotel Casino & Theme Park is an exciting place to stay and features 4 casinos that are open 24/7. Popular amenities, such as a Jacuzzi and an outdoor pool, make for a satisfying stay in Las Vegas. Rooms at Circus Circus Hotel Casino & Theme Park are modern and air conditioned, and offer a flat-screen TV, a private bathroom and a seating area. They provide an in-room safe, an alarm clock and wireless internet access. \
-          The Spa and Salon at ARIA offers a unique blend of services, products, and experiences. Distinctive design features combining Aji stone, water gardens, and natural light create a sense of warmth, calmness, and tranquility. The Spa features 50 treatment suites, sauna, and spa tub. Services offered at this spa include scrubs, wraps, facials, hydrotherapy and aromatherapy treatments, and massages. \
-          JEWEL Nightclub is now open at ARIA Resort & Casino. Spanning more than 24,000 square feet of precisely designed space, Hakkasan Group’s new nightlife experience, JEWEL, is as inviting as it is evocative. Experience an atmosphere of a rare ambient delight. Whether the headliner is a world class DJ or performer, JEWEL offers a multi-faceted experience for each guest.\
-          This celebrated concept from Mario Carbone, Rich Torrisi, and Jeff Zalaznick pays homage to the Italian-American restaurants of the mid-20th century – an era of glamour, showmanship, and tableside service" ,
-          "heroImageUrl": "http://d3mj096p5q0e20.cloudfront.net/ti/HBD/55610/043509a_hb_a_001.jpg",
-          "geoCode": {
-            "lat": 36.113,
-            "long": -114.925
-          },
-          "cardsSupported":["mastercard","visa","discover","amex","jcb"],
-          "amenities": [{
-            "type": "Hotel Amenities",
-            "offerings": [
-              "24 hour front desk",
-              "Total Number of rooms : 249",
-              "Number of Floors: 23",
-              "Outdoor seasonal pool (Heated)",
-              "Valet parking surcharged"
-            ]
-          }, {
-            "type": "Room Amenities",
-            "offerings": [
-              "Premium Tv Channel",
-              "DVD player",
-              "Video-game console",
-              "Air conditioning",
-              "Free news paper"
-            ]
-          }, {
-            "type": "Internet",
-            "offerings": [
-              "Premium Tv Channel",
-              "DVD player",
-              "Video-game console",
-              "Air conditioning",
-              "Free news paper"
-            ]
-            // }, {
-            // 	"type": "Parking",
-            // 	"offerings": [
-            // 		"Video-game console",
-            // 		"Air conditioning",
-            // 		"Free news paper"
-            // 	]
-            // }, {
-            // 	"type": "Pets",
-            // 	"offerings": [
-            // 		"Video-game console",
-            // 		"Air conditioning",
-            // 		"Free news paper"
-            // 	]
-          }],
-          "photoUrls": [
 
-            {
-              "url": "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_004.jpg",
-              "category": "room"
-            }, {
-              "url": "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_006.jpg",
-              "category": "hotel"
-            }, {
-              "url": "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_007.jpg",
-              "category": "room"
-            }, {
-              "url": "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_w_002.jpg",
-              "category": "hotel"
-            }
-          ],
-          "pointsOfInterest": [{
-            "name": "name",
-            "description": "description"
-          }],
-          "rooms": [
-            {
+        body {}
 
-              "id": "ad234dw",
-              "name": "Pavilion",
-              "description": "Pavilion with 1 bed(s)",
-              "quantity": 1,
-              "isPrepaid": true,
-              "guaranteeRequired": false,
-              "depositRequired": false,
-              "policies": [
-                {
-                  "description": "Minimum age for check in is 21 years old with valid id and credit card",
-                  "isQuantifiable": false,
-                  "window": null,
-                  "penalty": null,
-                  "type": "Disclaimer"
-                }
-              ],
-              "fare": {
-                "type": "Published",
-                "code": null,
-                "currency" : "USD",
-                "baseFare" : 26.58,
-                "discount":10.00,
-                "fees" : [
+        trust-you {}
+      </style>
+    </custom-style>
+  </head>
+
+  <body>
+    <t-hotel-details id="hotelDetails" >
+      <div slot="search-widget"> Search Widget goes here</div>
+    </t-hotel-details>
+
+    <script>
+
+      document.addEventListener('WebComponentsReady', (e) => {
+        const hotelDetailsComponent = document.querySelector('#hotelDetails');
+
+        hotelDetailsComponent.rooms = {
+          loading: false,
+          list: [
+            {
+              id: "8025ec42-019e-494d-b822-801ab926d8ec",
+              name: "Premium",
+              type: "",
+              code: "2023502",
+              desc: "",
+              availableRoomCount: 0,
+              maxOccupancy: 0,
+              adultOccupancy: 2,
+              childOccupancy: 0,
+              smokingIndicator: "Unknown",
+              roomRate: {
+                fare: {
+                  currency: "USD",
+                  baseFare: 741.83,
+                  fees: [],
+                  taxes: [{ "code": null, "desc": "TotalTax", "amount": 77.02 }],
+                  discounts: null,
+                  totalFee: 0.0,
+                  totalTax: 77.02,
+                  totalDiscount: 0.0,
+                  totalFare: 818.85
+                },
+                id: "9863fd7c-e0ba-4aa6-a69c-20d3a139332c_13ymjvdineo_1153848_0##MTQ4MDU7MjAyMzUwMjsxMjg5MzA7MjsyOzA7MV98VVNHfF8yMDIzNTAyX3xVU0d8XzIsMV98VVNHfF9ffFVTR3xfNQ==",
+                desc: null,
+                code: "14805;2023502;128930;2;2;0;1",
+                isPrepaid: true,
+                rateType: "Negotiated",
+                depositRequired: false,
+                guaranteeRequired: false,
+                supplierHotelId: "14805",
+                inclusions: [],
+                additionalCharges: [
+                  "Resort Fee for USD 179.70 will be charged by hotel."
+                ],
+                refundability: "Unknown",
+                dailyRate: [
                   {
-                    "type": "Agency",
-                    "amount" : 10,
+                    "date": "2017-01-02",
+                    "amount": 24.55,
+                    "discount": 10,
+                    "taxIncluded": "true"
                   }
                 ],
-                "totalFee":10.00,
-                "totalTax" : 5.58,
-                "totalFare" : 26.58
+                boardBasis: {
+                  "code": null,
+                  "desc": "Continental Breakfast",
+                  "type": "BedAndBreakfast"
+                },
+                cancellationPolicy: {
+                  text: "Cancellations or changes made during the applicable cancellation window are subject to a $50 penalty",
+                  penaltyRules: [
+                    {
+                      "value": 12.34,
+                      "estimatedValue": 15.5,
+                      "valueType": "Amount",
+                      "window": {
+                        "start": "2017-01-01T01:03",
+                        "end": "2017-01-25T01:30"
+                      }
+                    }
+                  ]
+                },
+                offer: {
+                  title: "Summer Free Nights Bonanza",
+                  desc: "Stay for 5 nights and get 2 nights free",
+                  discountOffer: 0,
+                  percentageDiscountOffer: 0,
+                  stayOffer: {
+                    stayNights: 5,
+                    freeNights: 2
+                  }
+                },
+                policies: [
+                  {
+                    type: "Cancellation",
+                    text: "Cancellations must be made at least 3 days prior to arrival in order to avoid a full-stay penalty, but not to exceed 3 nights room & tax. For example, a cancellation penalty for a 2-night stay will be 2 nights room and tax. A cancellation penalty for a 5-night stay will be 3 nights room and tax" 
+                  }
+                ]
               },
-              "type": "1313399_12532330_9094073_2_1_0",
-              "roomOccupancyTypes": [
-                "|1|1:A:25|"
-              ],
-              "dailyRates": [ "$45", "$45", "$50", "$45"],
-              "inclusions": [
-                "Resort Fee for USD 17.90 will be charged by hotel."
-              ],
-              "isPreferred": false,
-              "deals": null,
-              "source": {
-                "id": 103,
-                "name": "TouricoTGS Test"
-              },
-              "areExtraTaxesApplicable": false,
-              "roomImages":[]
-            }
-          ],
-          "isCancellable": true,
-          "allPassengersInfoRequired": false,
-          "isGuaranteeRequired": true,
-          "fare": {
-            "type": "Published",
-            "code": null,
-            "isRefundable": false,
-            "baseFare": {
-              "displayAmount": "$26.58",
-              "amount": 26.58,
-              "currency": "USD"
-            },
-            "discount": {
-              "displayAmount": "$10.0",
-              "amount": 10.00,
-              "currency": "USD"
-            },
-            "fees": [{
-              "type": "Agency",
-              "displayAmount": "$10",
-              "amount": 10,
-              "currency": "USD"
-
-            }],
-            "totalFee": {
-              "displayAmount": "$10.00",
-              "amount": "10",
-              "currency": "USD"
-            },
-            "totalTax": {
-              "displayAmount": "$5.58",
-              "amount": 5.58,
-              "currency": "USD"
-            },
-            "totalFare": {
-              "displayAmount": "$26.58",
-              "amount": 26.58,
-              "currency": "USD"
-            }
-          },
-          "isPostPaid": false,
-          "isSoldOut": false,
-          "isPreferred": false,
-          "source": {
-            "inventoryId": "55610",
-            "id": 111,
-            "name": "HotelBeds Test"
-          },
-          "popularStaticAmenities": [{
-            "name": "Restaurants",
-            "icon": "maps:restaurant-menu"
-          }, {
-            "name": "Parking",
-            "icon": "maps:local-parking"
-          }, {
-            "name": "Wi-Fi",
-            "icon": "device:network-wifi"
-          }, {
-            "name": "Fitness Center",
-            "icon": "places:fitness-center"
-          }, {
-            "name": "Outdoor Pool",
-            "icon": "places:pool"
-          }, {
-            "name": "Spa",
-            "icon": "places:spa"
-          }],
-          "pointsOfInterest":["Brooklyn Bowl Las Vegas","Colosseum at Caesars Palace","Flamingo Wildlife Habitat","Forum Shops At Caesars Palace","Monorail - Harrah's / Imperial Palace","Fitness center access","Internet access","Phone calls","Additional inclusions","Premium TV channels","Pay movies","Hypo-allergenic bedding available"],
-          "userRating": "3.4",
-          "userReviewCount": 500,
-          "reviewType": "Excellent"
-
-        }
-        hotelDetailsPage.resources = {
-          page: {
-            mapViewLabel: "View on Map",
-            descriptionText: "Description",
-            pointOfInterest:"Point of interest",
-            mostPopularAmenitiesLabel:"Most popular amenities"
-          },
-          checkout:{
-            "totalLabel":"Total",
-            "inclusiveTaxesLabel":"Inclusive of all taxes and fees",
-            "checkoutButtonLabel":"CONTINue to checkout"
-          },
-          hotelResearch:{
-            researchLabel: "Didn't find the right property?",
-            researchText:"CONTINUE TO SEARCH"
-          }
-        }
-        hotelDetailsPage.hotelExtra = {
-          extraItems: [{
-            iconType: 'maps:train',
-            label: 'Close to public transport'
-          }, {
-            iconType: 'notification:wc',
-            label: 'Excellent choice for family'
-          }]
-        }
-        hotelDetailsPage.hotelHeader = hotelDetails;
-
-        tHotelDetails.hotel = {
-          "id": "55610",
-          "trustyouId": "674fa44c-1fbd-4275-aa72-a20f262372cd",
-          "name": "THE WESTIN LAKE LAS VEGAS RESORT &amp; SPA",
-          "rating": 5,
-          "distance": 13.86,
-          "address": "101 MONTELAGO BOULEVARD  HENDERSON",
-          "phoneNumber": "702 567 1234",
-          "price": {
-            bookPrice : '$402',
-            originalPrice : '$459',
-            discount : '25%'
-          },
-          "description": "The luxury hotel radiates a Moroccan atmosphere and comprises a total of 493 rooms spread over 9 floors. Amongst the hotel's facilities count an air-conditioned lobby with a 24-hour reception desk, lift access, a hotel safe, a cloakroom and a currency exchange desk. Further amenities include a newspaper stand, a range of shops, a hairdressing salon, a casino, a kids' club, and free car parking spaces. Dining options include a cozy bar and a pleasing restaurant. Guests may also make use of the public Internet access in addition to the laundry and 24-hour room services. Self and valet parking, secure golf bag storage, concierge-assisted boarding passes, and intra-resort on-demand transportation are also offered.",
-          "heroImageUrl": "http://d3mj096p5q0e20.cloudfront.net/ti/HBD/55610/043509a_hb_a_001.jpg",
-          "geoCode": {
-            "latitude" : 36.113,
-            "longitude" : -114.925
-          },
-          attentionHooks : [{
-            icon: 'maps:train',
-            label: 'Close to public transport'
-          }, {
-            icon: 'notification:wc',
-            label: 'Excellent choice for family'
-          }],
-          "amenities": [
-            {
-              "category":"Parking",
-              "name":"Long-term parking (surcharge)",
-              "description" : ""
-            }
-          ],
-          "images":[
-            { "url" : "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_004.jpg", "category" : "room"},
-            { "url" : "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_006.jpg", "category" : "hotel"},
-            { "url" : "http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_007.jpg","category" : "room"},
-            { "url" :"http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_w_002.jpg","category" : "hotel"}
-          ],
-          "areaAttractions":[
-            {
-              "name":"Las Vegas NV (LAS McCarran Intl)",
-              "description":"Las Vegas NV (LAS-McCarran Intl) --3.3 km",
-              "category":null
-            }
-          ],
-          "rooms": null,
-          "supportsPostpaidRates": false,
-          "supportsPrepaidRates": false,
-          "pointsOfInterest":["Brooklyn Bowl Las Vegas","Colosseum at Caesars Palace","Flamingo Wildlife Habitat","Forum Shops At Caesars Palace","Monorail - Harrah's / Imperial Palace","Fitness center access","Internet access","Phone calls","Additional inclusions","Premium TV channels","Pay movies","Hypo-allergenic bedding available"],
-        };
-        tHotelDetails.popularStaticAmenities = [
-          {
-            "name": "Restaurants",
-            "icon": "maps:restaurant-menu"
-          }, {
-            "name": "Parking",
-            "icon": "maps:local-parking"
-          }, {
-            "name": "Wi-Fi",
-            "icon": "device:network-wifi"
-          }, {
-            "name": "Fitness Center",
-            "icon": "places:fitness-center"
-          }, {
-            "name": "Outdoor Pool",
-            "icon": "places:pool"
-          }, {
-            "name": "Spa",
-            "icon": "places:spa"
-          }
-        ];
-
-        tHotelDetails.rooms = {
-          count:2,
-          types: [
-            {
-
-              "id": "ad234dw",
-              "name": "Pavilion",
-              "description": "Pavilion with 1 bed(s)",
-              "quantity": 1,
-              "isPrepaid": true,
-              "guaranteeRequired": false,
-              "depositRequired": false,
-              "policies": [
+              recommendationId: "02158680-897f-4111-8a53-664f78b3bd83",
+              bedDetails: [
                 {
-                  "description": "Minimum age for check in is 21 years old with valid id and credit card",
-                  "isQuantifiable": false,
-                  "window": null,
-                  "penalty": null,
-                  "type": "Disclaimer"
+                  type: "King",
+                  desc: "King-size bed",
+                  count: 1
                 }
               ],
-              "fare": {
-                "type": "Published",
-                "code": null,
-                "currency" : "USD",
-                "baseFare" : 26.58,
-                "discount":10.00,
-                "fees" : [
+              roomViews: [ "Front view", "Sea View"],
+              group: 0
+            },
+            {
+              id: "41e73bd8-d2d3-4451-b5f4-48942fc3cddb",
+              name: "Premium",
+              type: "",
+              code: "2023502",
+              desc: "",
+              availableRoomCount: 0,
+              maxOccupancy: 0,
+              adultOccupancy: 1,
+              childOccupancy: 0,
+              smokingIndicator: "Unknown",
+              roomRate: {
+                fare: {
+                  currency: "USD",
+                  baseFare: 741.83,
+                  fees: [],
+                  taxes: [{ "code": null, "desc": "TotalTax", "amount": 77.02 }],
+                  discounts: null,
+                  totalFee: 0.0,
+                  totalTax: 77.02,
+                  totalDiscount: 0.0,
+                  totalFare: 818.85
+                },
+                id: "9863fd7c-e0ba-4aa6-a69c-20d3a139332c_13ymjvdineo_1153848_0##MTQ4MDU7MjAyMzUwMjsxMjg5MzA7MjsxOzBffFVTR3xfMjAyMzUwMl98VVNHfF8xLDFffFVTR3xfX3xVU0d8XzU=",
+                desc: null,
+                code: "14805;2023502;128930;2;1;0",
+                isPrepaid: true,
+                rateType: "Negotiated",
+                depositRequired: false,
+                guaranteeRequired: false,
+                supplierHotelId: "14805",
+                inclusions: [],
+                additionalCharges: [
+                  "Resort Fee for USD 179.70 will be charged by hotel."
+                ],
+                refundability: "Unknown",
+                dailyRate: [
                   {
-                    "type": "Agency",
-                    "amount" : 10,
+                    date: "2017-01-02",
+                    amount: 24.55,
+                    discount: 10,
+                    taxIncluded: "true"
                   }
                 ],
-                "totalFee":10.00,
-                "totalTax" : 5.58,
-                "totalFare" : 26.58
+                boardBasis: {
+                  code: null,
+                  desc: "Continental Breakfast",
+                  type: "BedAndBreakfast"
+                },
+                cancellationPolicy: null,
+                offer: null,
+                policies: []
               },
-              "type": "1313399_12532330_9094073_2_1_0",
-              "roomOccupancyTypes": [
-                "|1|1:A:25|"
-              ],
-              "dailyRates": [ "$45", "$45", "$50", "$45"],
-              "inclusions": [
-                "Resort Fee for USD 17.90 will be charged by hotel."
-              ],
-              "isPreferred": false,
-              "deals": null,
-              "source": {
-                "id": 103,
-                "name": "TouricoTGS Test"
-              },
-              "areExtraTaxesApplicable": false,
-              "roomImages":[]
+              recommendationId: "02158680-897f-4111-8a53-664f78b3bd83",
+              bedDetails: null,
+              roomViews: [],
+              group: 1
             }
           ]
-        } ;
+        };
 
-        tHotelDetails.resources = {
-          "room" : {
+        hotelDetailsComponent.resources = {
+          overview:{
+            discount: "discount",
+            price: "starting from",
+            reserve: "RESERVE",
+            cityCenter: "City Center",
+            distanceUnit: "Mile",
+            phone: "Call the number"
+          },
+          details:{
+            "loading" : "Loading..",
+            "priceInclusive" : "inclusive of all taxes and fees",
+            "description" : "Description",
+            "guestReview" : "Guest Review",
+            "hotelAmenities" : "Hotel Amenities" ,
+            "roomAmenities" : "Room Amenities",
+            "hotelPolicies" : "Hotel Policies",
+            "pointOfInterest" : "Point of interest",
+            "cancellation" : "Cancellation",
+            "checkIn" : "Check-in",
+            "checkOut" : "Check-out",
+            "continueToCheckout" : "CONTINUE TO CHECKOUT",
+            "mostPopularAmenities" : "Most Popular Amenities",
+            "viewOnMap" : "View on map",
+            "more" : "More",
+            "foundRightProperty" : "Didn't find the right property?",
+            "continueSearch" : "CONTINUE TO SEARCH"
+          },
+          rooms:{
             "guests" : "Guests",
             "room" : "Room",
             "roomType" : "Room Type",
@@ -437,81 +237,114 @@
             "roomPolicy" : "room Policy",
             "showMoreRooms" : "Show More Rooms",
             "dailyRates": "Daily Rate"
-          },
-          "loading" : "Loading..",
-          "copyLink" : "Copy Link",
-          "messenger" : "Messenger",
-          "email" : "Email",
-          "priceInclusive" : "inclusive of all taxes and fees",
-          "description" : "Description",
-          "guestReview" : "Guest Review",
-          "priceArea": "Price starting from",
-          "price": "starting from",
-          "hotelAmenities" : "Hotel Amenities" ,
-          "cityCenter" : "City Center",
-          "roomAmenities" : "Room Amenities",
-          "hotelPolicies" : "Hotel Policies",
-          "unitMile": "Mile",
-          "pointOfInterest" : "Point of interest",
-          "cancellation" : "Cancellation",
-          "checkIn" : "Check-in",
-          "checkOut" : "Check-out",
-          "discount": "discount",
-          "continueToCheckout" : "CONTINUE TO CHECKOUT",
-          "mostPopularAmenities" : "Most Popular Amenities",
-          "viewOnMap" : "View on map",
-          "more" : "More",
-          "foundRightProperty" : "Didn't find the right property?",
-          "reserveNowButton" : "Reserve Now",
-          "continueSearch" : "CONTINUE TO SEARCH",
-          "hotelMap": {
-            "reserveNowButton" : "Reserve Now",
-            "nearbyButtonLabel" : "Nearby",
-            "hotelButtonLabel" : "Hotel",
-            "startAddressLabel" : "Start Address",
-            "directionsButtonLabel" : "Get Directions",
-            "endAddressLabel" : "End Address",
-            "pointsOfInterest" : "Points of interest"
           }
         };
 
-        tGallery.tilesEnabled = true;
-        tGallery.images = [
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/2400x1600&sig=123", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=17", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=26", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=25", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=24", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=23", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=22", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=21", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=20", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600&sig=99", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/600x600", "category" : "room" },
-          { "caption" : "image caption", "url" : "https://source.unsplash.com/random/400x600", "category" : "room" }
-        ];
+        hotelDetailsComponent.overview = {
+          name: 'THE WESTIN LAKE LAS VEGAS RESORT SPA',
+          address: '101 MONTELAGO BOULEVARD  HENDERSON',
+          rating: 5,
+          phone:  "702 567 1234",
+          distance: 13.86,
+          shareVia: {
+            icon: 'social:share',
+            options: [
+              { label: 'Copy Link', value: 'copy', icon: 'content-copy'},
+              { label: 'Messenger', value: 'messenger', icon: 'communication:message'},
+              { label: 'Email', value: 'email', icon: 'mail'}
+            ]
+          },
+          favorite: {
+            icon: 'favorite'
+          },
+          price : {
+            bookingPrice: '$402',
+            originalPrice: '$459',
+            discount: '25%'
+          }
+        };
+
+        hotelDetailsComponent.details = {
+          googleApiKey:  'AIzaSyCT5zC7NQ1lzgAzPPu5W0jycrHkI-rYuB8',
+          amenities: [
+            { "name": "Pay movies", "description": null, "category": null },
+            { "name": "Poolside bar", "description": null, "category": "Bar" },
+            { "name": "Private bathroom", "description": null, "category": null },
+            { "name": "Elevator/lift", "description": null, "category": null },
+            { "name": "Refrigerator", "description": null, "category": null },
+            { "name": "Led Tv", "description": null, "category": "Television" },
+            { "name": "Porter/bellhop", "description": null, "category": null },
+            { "name": "Snack bar/deli", "description": null, "category": "Bar" }
+          ],
+          descriptions: [
+            {
+              "type": "Recreation",
+              "value":
+                "Westgate Las Vegas Resort & Casino offers a large outdoor pool with brand new cabanas and daybeds, plus an adjacent 25-seat hot tub, a bar, grill, and retail store. The resort also features 6 hard-surface tennis courts (surcharge), 4 of which are lighted for night play. Private tennis lessons are available upon reservation and request. Guests can enjoy the state-of-the-art fitness center that features cardio equipment, free weights, and weight machines, conveniently located at the pool deck. Access to the pool and fitness center is included in the resort fee. The recreational activities listed below are available either on site or nearby; fees may apply."
+            },
+            {
+              "type": "Spa",
+              "value": "The Spa at Westgate Las Vegas Resort & Casino is currently closed for renovations."
+            },
+            {
+              "type": "General",
+              "value": "Property Location With a stay at Westgate Las Vegas Resort & Casino in Las Vegas (East of The Strip), you'll be minutes from Las Vegas Convention Center and close to University of Nevada-Las Vegas. This 4-star hotel is within close proximity of Las Vegas Country Club and Fashion Show Mall. Rooms Make yourself at home in one of the 2956 air-conditioned rooms featuring refrigerators and LED televisions. Wired Internet access (surcharge) is available to keep you connected. Private bathrooms with shower/tub combinations feature complimentary toiletries and hair dryers. Conveniences include phones, as well as safes and desks. Amenities Take time to pamper yourself with a visit to the full-service spa. Gambling sorts can try their luck at the casino, while others may prefer outdoor tennis courts or a 24-hour health club. Additional features at this hotel include wireless Internet access (surcharge), concierge services, and gift shops/newsstands. Dining Grab a bite to eat at one of the hotel's 10 restaurants and 2 coffee shops/cafés, or stay in and take advantage of room service (during limited hours). Relax with a refreshing drink from a poolside bar or one of the 5 bars/lounges. Business, Other Amenities Featured amenities include wired Internet access (surcharge), a business center, and limo/town car service. Planning an event in Las Vegas? This hotel has 225,000 square feet (21 square meters) of space consisting of conference space and meeting rooms. Free valet parking is available onsite."
+            },
+            {
+              "type": "Dining",
+              "value": "Grab a bite to eat at one of the hotel's 10 restaurants and 2 coffee shops/cafés, or stay in and take advantage of room service (during limited hours). Relax with a refreshing drink from a poolside bar or one of the 5 bars/lounges."
+            }
+          ],
+          geoCode: { "lat": 36.13603, "long": -115.154709 },
+          images: [
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/2400x1600&sig=123", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=17", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=26", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=25", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=24", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=23", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=22", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=21", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600&sig=20", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600&sig=99", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x1600", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/800x600", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/600x600", "category" : "room" },
+            { "caption" : "image caption", "url" : "https://source.unsplash.com/random/400x600", "category" : "room" }
+          ],
+          areaAttractions: [
+            {
+              "name": "Las Vegas NV (LAS McCarran Intl)",
+              "description": "Las Vegas NV (LAS-McCarran Intl) --5.6 km",
+              "category": null
+            }
+          ],
+          hotelChain: "Westgate Resorts",
+          policies: [
+            {
+              "type": "General",
+              "text":
+                "Know Before You Go The property has connecting/adjoining rooms, which are subject to availability and can be requested by contacting the property using the number on the booking confirmation. Fees The following fees and deposits are charged by the property at time of service, check-in, or check-out. Fee for wireless Internet in public areas: USD 15.99 per night (rates may vary) Fee for wired Internet in public areas: USD 15.99 per stay (rates may vary) Rollaway bed fee: USD 30.00 per night The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change. Mandatory Fees and Taxes You'll be asked to pay the following charges at the property: Resort fee: USD 29.95+tax per accommodation, per night The resort fee includes: Fitness center access Internet access Phone calls Parking Additional inclusions We have included all charges provided to us by the property. However, charges can vary, for example, based on length of stay or the room you book."
+            }
+          ],
+          userReview: {
+            "rating": "3.5",
+            "type": "Excellent",
+            "count": 500
+          },
+          checkinCheckoutPolicy: [
+            {
+              "inTime": "15:0",
+              "outTime": "11:0",
+              "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+            }
+          ]
+        };
       });
-      // popularthings.listItems = ["Brooklyn Bowl Las Vegas","Colosseum at Caesars Palace","Flamingo Wildlife Habitat","Forum Shops At Caesars Palace","Monorail - Harrah's / Imperial Palace","Fitness center access","Internet access","Phone calls","Additional inclusions","Premium TV channels","Pay movies","Hypo-allergenic bedding available"];
 
-      // popularAmenties.popularStaticAmenities = [
-      //   { name: "Restaurants", icon : "maps:restaurant-menu"},
-      //   { name : "Parking", icon : "maps:local-parking"},
-      //   { name : "Wi-Fi",  icon : "device:network-wifi"},
-      //   { name : "Fitness Center", icon : "places:fitness-center"},
-      //   { name: "Outdoor Pool", icon :"places:pool"},
-      //   { name: "Spa", icon : "places:spa"}
-      // ]
+    </script>
+  </body>
 
-
-      // trustU.resource = {
-      //   verifyLabel: 'verified',
-      //   reviewsLabel: 'reviews'
-      // };
-      </script>
-    </body>
-
-    </html>
+</html>
