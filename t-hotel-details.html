@@ -56,6 +56,7 @@ Example:
 
     .map-container {
       height: 210px;
+overflow: hidden;
     }
     .map-container .column{
       height: 100%;
@@ -218,15 +219,13 @@ Example:
           <t-image-corousel tiles-enabled images=[[details.images]] ></t-image-corousel>
         </div>
         <div class="row column-md trust-you-area">
-          <!-- <div class="trust&#45;you flex"> -->
+          <div hidden$="[[!details.userReview]]" class="trust-you flex" >
           <!--   <iframe class="not&#45;mobile" src="http://api.trustyou.com/hotels/[[hotel.trustyouId]]/seal.html?size=xl" width="100%" ></iframe> -->
           <!--   <iframe class="mobile&#45;view" src="http://api.trustyou.com/hotels/[[hotel.trustyouId]]/seal.html?size=m" width="100%" height="55" frameborder="0" scrolling="no" style="overflow: hidden;"></iframe> -->
-          <!-- </div> -->
-        <div hidden$="[[!details.userReview]]">
           <trust-you class="flex" rating="[[details.userReview.rating]]" review-type="[[  details.userReview.type ]]" review-count="[[details.userReview.count]]"></trust-you>
-        </div>
+          </div>
         <div class="row column-md extra-detail not-tablet">
-          <template is="dom-repeat" items="[[details.areaAttractions]]"  filter="_isWithin5Kms">
+          <template is="dom-repeat" items="[[details.areaAttractions]]" filter="_isWithin5Kms" observe="description">
             <div class="detail-item row-md">
               <iron-icon icon="[[item.icon]]"></iron-icon>
               <p class="not-mobile">[[item.name]]</p>
@@ -245,7 +244,7 @@ Example:
     </div>
     <div class="not-mobile row-md flex-align-start-md ">
       <hotel-details-info class="hotel-description" heading="[[resources.details.description]]" collapse-length="528" text-content="[[details.descriptions.0.value]]"></hotel-details-info>
-      <hotel-details-info class="popular-things-container" heading="[[resources.details.pointOfInterest]]" class="popular-things" list-items="[[details.pointsOfInterest]]"></hotel-details-info>
+      <hotel-details-info class="popular-things-container" heading="[[resources.details.pointsOfInterest]]" class="popular-things" list-items="[[details.pointsOfInterest]]"></hotel-details-info>
     </div>
 
     <popular-amenities
@@ -259,17 +258,17 @@ Example:
       <slot name="search-widget"></slot>
     </div>
     <room-list count="[[rooms.count]]" room-types="[[rooms.types]]"></room-list>
-    <total-price-container resources="[[resources.checkout]]"></total-price-container>
+    <total-price-container amount="$2014" resources="[[resources.details]]"></total-price-container>
     <div class="mobile-view">
       <t-hotel-map points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
     </div>
     <paper-tabs selected="[[_selectedBottomTab]]" class="bottom-tabs">
       <paper-tab>[[resources.details.aboutHotel]]</paper-tab>
-      <paper-tab>[[resouces.details.guestReviews]]</paper-tab>
+      <paper-tab>[[resources.details.guestReviews]]</paper-tab>
     </paper-tabs>
     <iron-pages selected="[[_selectedBottomTab]]">
       <section>
-        <about-the-hotel points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]"  description="[[details.description]]" amenities="[[details.amenities]]" cards-supported="[[details.cardsSupported]]"></about-the-hotel>
+        <about-the-hotel cancellation-policy="[[details.cancellationPolicy]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details]]"  descriptions="[[details.descriptions]]" amenities="[[details.amenities]]" cards-supported="[[details.cardsSupported]]"></about-the-hotel>
       </section>
       <section>
         Guest Review section
@@ -312,6 +311,7 @@ Example:
     _isWithin5Kms(attraction) {
       const distanceString = attraction.description.split(' ')[1];
       const distance = parseInt(distanceString.replace('--',''));
+      console.log('sdf');
       return distance <= 5;
     }
 
