@@ -107,16 +107,16 @@ Example:
               text-content="[[cancellationPolicy]]"
               >
             </hotel-details-info>
-            
+
             <template is="dom-if" if="[[cardsSupported]]">
-            <hotel-details-info class="info-child" collapse-length="400" heading="Cards accepted by this property" >
-              <div slot="content">
-                <template is="dom-repeat" items="[[cardsSupported]]">
-                  <img src="../images/[[item]].png"  class="card-item" alt="[[item]]" />
-                </template>
-              </div>
-            </hotel-details-info>
-              </template>
+              <hotel-details-info class="info-child" collapse-length="400" heading="Cards accepted by this property" >
+                <div slot="content">
+                  <template is="dom-repeat" items="[[cardsSupported]]">
+                    <img src="../images/[[item]].png"  class="card-item" alt="[[item]]" />
+                  </template>
+                </div>
+              </hotel-details-info>
+            </template>
 
           </div>
         </hotel-details-info>

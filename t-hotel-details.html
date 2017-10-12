@@ -257,7 +257,11 @@ overflow: hidden;
     <div class="search-container">
       <slot name="search-widget"></slot>
     </div>
-    <room-list count="[[rooms.count]]" room-types="[[rooms.types]]"></room-list>
+
+    <template is="dom-repeat" items="[[_getRoomsArray(rooms.count)]]">
+      <room-list resources="[[resources.rooms]]" index="[[_incrementByOne(index)]]" room-types="[[rooms.list]]" amenities="[[details.amenities]]"></room-list>
+    </template>
+
     <total-price-container amount="$2014" resources="[[resources.details]]"></total-price-container>
     <div class="mobile-view">
       <t-hotel-map points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
@@ -313,6 +317,14 @@ overflow: hidden;
       const distance = parseInt(distanceString.replace('--',''));
       console.log('sdf');
       return distance <= 5;
+    }
+
+    _getRoomsArray(count){
+      return new Array(count)
+    }
+
+    _incrementByOne(index){
+      return index + 1;
     }
 
   };
