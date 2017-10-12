@@ -12,224 +12,235 @@
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 <link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="../paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../neon-animation/web-animations.html">
 <link rel="import" href="hotel-details-styles.html">
 
 
 <dom-module id="hotel-overview">
-  <template>
-    <custom-style>
-      <style include="hotel-details-styles">
-        :host{
-          --rating-icon-size: 20px;
-          --rating-icon-padding: 0px;
-        }
+	<template>
+		<custom-style>
+			<style include="hotel-details-styles">
+				:host{
+					--rating-icon-size: 20px;
+					--rating-icon-padding: 0px;
+				}
 
-        iron-icon {
-          width: 20px;
-          height: 20px;
-          color: var(--shade-semidark);
-        }
+				iron-icon {
+					width: 20px;
+					height: 20px;
+					color: var(--shade-semidark);
+				}
 
-        a {
-          text-decoration: none;
-          speak-numeral: digits;
-        }
+				a{
+					text-decoration: none;
+					speak-numeral: digits;
+				}
 
-        [icon="communication:location-on"] {
-          color: var(--link-color);
-        }
+				[icon="communication:location-on"] {
+					color: var(--link-color);
+				}
 
-        .right-container {
-          display: none;
-        }
+				.right-container {
+					display: none;
+				}
 
-        @media (min-width: 550px) {
-          .row-md {
-            @apply --layout-wrap;
-          }
-          .align-end {
-            @apply --layout-end;
-          }
-          .right-container {
-            display: block;
-          }
-          .left-container {
-            flex: 1 1 300px;
-          }
-          .row-justified {
-            @apply --layout-justified;
-          }
-          h2 {
-            margin-right: 20px;
-          }
-          .discount {
-            background: var(--app-red-color);
-            padding: 5px;
-            color: var(--discount-color, #fff);
-            border-radius: 2px;
-            line-height: 30px;
-          }
-          .originalPrice {
-            font-size: 16px;
-            text-decoration: line-through;
-          }
-          .bookPrice {
-            font-size: 24px;
-            line-height: 1.2;
-            color: var(--app-red-color);
-            font-weight: bold;
-          }
-        }
-        @media (min-width: 1024px){
-          h2{
-            font-size: 24px;
-            font-weight: 400;
-          }
-          p,
-          a,
-          dl,
-          dt:not(.resource-label),
-          dd {
-            font-size: 16px;
-          }
-        }
+				@media (min-width: 550px) {
+					.row-md {
+						@apply --layout-wrap;
+					}
+					.align-end {
+						@apply --layout-end;
+					}
+					.right-container {
+						display: block;
+					}
+					.left-container {
+						flex: 1 1 300px;
+					}
+					.row-justified {
+						@apply --layout-justified;
+					}
+					h2 {
+						margin-right: 20px;
+					}
+					.discount {
+						background: var(--app-red-color);
+						padding: 5px;
+						color: var(--discount-color, #fff);
+						border-radius: 2px;
+						line-height: 30px;
+					}
+					.originalPrice {
+						font-size: 16px;
+						text-decoration: line-through;
+					}
+					.bookPrice {
+						font-size: 24px;
+						line-height: 1.2;
+						color: var(--app-red-color);
+						font-weight: bold;
+					}
+				}
+				@media (min-width: 1024px){
+					h2{
+						font-size: 24px;
+						font-weight: 400;
+					}
+					p, a, dl, dt:not(.resource-label), dd {
+						font-size: 16px;
+					}
+				}
 
-        .header-row{
-          @apply --layout-start;
-        }
+				.header-row{
+					@apply --layout-start;
+				}
 
-        .icons-header {
-          height: 30px;
-          margin-left: 10px;
-        }
+				.icons-header {
+					height: 30px;
+					margin-left: 10px;
+				}
 
-        .icons-header paper-icon-button{
-          padding: 3px;
-          border-radius: 50%;
-          color: var(--shade-light);
-          width: 30px;
-          height: 30px;
-          margin: 0;
-        }
+				.icons-header paper-icon-button{
+					padding: 3px;
+					border-radius: 50%;
+					color: var(--shade-light);
+					width: 30px;
+					height: 30px;
+					margin: 0;
+				}
 
-        .icons-header .favorite[active=""] {
-          color: var(--app-red-color);
-        }
+				.icons-header .favorite[active=""] {
+					color: var(--app-red-color);
+				}
 
-        .header-menu-button {
-          padding: 0;
-          color: var(--shade-light);
-          margin-left: 5px;
-        }
+				.header-menu-button {
+					padding: 0;
+					color: var(--shade-light);
+					margin-left: 5px;
+				}
 
-        .header-menu-button iron-icon{
-          margin-right: 5px;
-        }
-      </style>
-    </custom-style>
-    <div class="row row-justified">
-      <div class="left-container">
-        <div class="row header-row">
-          <div class="row-md margin-b">
-            <h2 class="margin-b">[[hotel.name]]</h2>
-            <star-rating  rating="[[hotel.rating]]"></star-rating>
-          </div>
-          <div class="icons-header row flex">
-            <paper-icon-button class="favorite" icon="[[hotel.favorite.icon]]" toggles></paper-icon-button>
-            <paper-menu-button horizontal-offset="-135" vertical-offset="0" class="header-menu-button">
-              <paper-icon-button icon="[[hotel.shareVia.icon]]" slot="dropdown-trigger" alt="menu"></paper-icon-button>
-              <paper-listbox slot="dropdown-content">
-                <template is="dom-repeat" items="[[hotel.shareVia.options]]">
-                  <paper-item label="[[item.label]]">
-                    <iron-icon icon="[[item.icon]]"></iron-icon>
-                    [[item.value]]
-                  </paper-item>
-                </template>
-              </paper-menu-button>
-            </div>
-          </div>
-          <p class="margin-b">[[hotel.address]]</p>
-          <div class="row">
-            <a aria-label="[[resources.phone]]" href="tel:[[hotel.phone]]" class="row margin-r">
-              <iron-icon icon="communication:call"></iron-icon>
-              <span class="margin-l">
-                [[hotel.phone]]
-              </span>
-            </a>
-            <template is="dom-if" if="[[ hotel.distance ]]">
-              <dl class="row">
-                <dt>[[resources.cityCenter]]:&nbsp;</dt>
-                <dd>[[hotel.distance]] [[resources.distanceUnit]]</dd>
-              </dl>
-            </template>
-            <a href="#" role="button" class="margin-l">
-              <iron-icon icon="communication:location-on" on-click="_fireMapClick"> </iron-icon>
-            </a>
-          </div>
-        </div>
-        <div class="right-container">
-          <div class="row  align-end">
-            <dl class="row margin-r align-end">
-              <div>
-                <dt hidden>[[resource.discount]]</dt>
-                <dd class="margin-r-small" aria-label="[[resources.discount]]">
-                  <span class="discount">-[[hotel.price.discount]]</span>
-                </dd>
-              </div>
-              <div>
-                <dt aria-hidden="true" class="margin-b resource-label text-right">
-                  [[resource.price]]
-                </dt>
-                <dd class="row">
-                  <span aria-hidden="true" class="originalPrice margin-r-small">[[hotel.price.originalPrice]]</span>
-                  <span class="bookPrice">[[hotel.price.bookingPrice]]</span>
-                </dd>
-              </div>
-            </dl>
-            <paper-button raised class="primary-btn">[[resources.reserve]]</paper-button>
-          </div>
-        </div>
-      </div>
-    </template>
-    <script>
+				.header-menu-button iron-icon{
+					margin-right: 5px;
+				}
+			</style>
+		</custom-style>
+		<div class="row row-justified">
+			<div class="left-container">
+				<div class="row header-row">
+					<div class="row-md margin-b">
+						<h2 class="margin-b">[[hotel.name]]</h2>
+						<star-rating  rating="[[hotel.rating]]"></star-rating>
+					</div>
 
-      /**
-       * `hotel-overview`
-       *
-       * @customElement
-       * @polymer
-       * @demo demo/index.html
-       */
+					<div class="icons-header row flex">
+						<paper-icon-button active ="{{hotel.isFavorite}}" on-click="_fireFavoriteActionEvent" class="favorite" icon="[[resources.favorite]]" toggles></paper-icon-button>
+						<paper-menu-button on-iron-select="_shareOnPlatform"  class="header-menu-button">
+							<paper-icon-button icon="[[resources.share]]" slot="dropdown-trigger" alt="menu"></paper-icon-button>
+							<paper-listbox slot="dropdown-content">
+								<template is="dom-repeat" items="[[hotel.sharingPlatforms]]">
+									<paper-item label="[[item.value]]" >
+										<iron-icon icon="[[item.icon]]"></iron-icon>
+										[[item.label]]
+									</paper-item>
+								</template>
+							</paper-listbox>
+						</paper-menu-button>
+					</div>
+				</div>
+				<p class="margin-b">[[hotel.address]]</p>
+				<div class="row">
+					<a href="tel:[[hotel.phone]]" class="row margin-r">
+						<iron-icon icon="communication:call"></iron-icon>
+						<span class="margin-l">
+							[[hotel.phone]]
+						</span>
+					</a>
+					<template is="dom-if" if="[[ hotel.distance ]]">
+						<dl class="row">
+							<dt>[[resources.cityCenter]]:&nbsp;</dt>
+							<dd>[[hotel.distance]] [[resources.distanceUnit]]</dd>
+						</dl>
+					</template>
+					<a href="#" role="button" class="margin-l">
+						<iron-icon icon="communication:location-on" on-click="_fireMapClick"> </iron-icon>
+					</a>
+				</div>
+			</div>
+			<div class="right-container">
+				<div class="row  align-end">
+					<dl class="row margin-r align-end">
+						<div>
+							<dt hidden>[[resource.discount]]</dt>
+							<dd class="margin-r-small" aria-label="[[resources.discount]]">
+								<span class="discount">-[[hotel.price.discount]]</span>
+							</dd>
+						</div>
+						<div>
+							<dt aria-hidden="true" class="margin-b resource-label text-right">
+								[[resource.price]]
+							</dt>
+							<dd class="row">
+								<span aria-hidden="true" class="originalPrice margin-r-small">[[hotel.price.originalPrice]]</span>
+								<span class="bookPrice">[[hotel.price.bookingPrice]]</span>
+							</dd>
+						</div>
+					</dl>
+					<paper-button raised class="primary-btn" on-click="_fireReserveEvent">[[resources.reserve]]</paper-button>
+				</div>
+			</div>
+		</div>
+	</template>
+	<script>
 
-  class HotelOverview extends Polymer.Element {
-    static get is() {
-      return 'hotel-overview';
-    }
+		/**
+		 * `hotel-overview`
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
 
-    static get properties() {
-      return {
+	class HotelOverview extends Polymer.Element {
+		static get is() {
+			return 'hotel-overview';
+		}
 
-        resources: {
-          type: Object
-        },
-        hotel: {
-          type: Object,
-          value: {}
-        }
-      };
-    }
-    _fireMapClick(e) {
-      e.preventDefault();
-      //TODO: fire event here
-      document.querySelector('t-hotel-map')._showThumbnail = false;
-      this.dispatchEvent(new CustomEvent('map-icon-clicked'));
-    }
+		static get properties() {
+			return {
 
-    _fireReserveClick(e) {
-      this.dispatchEvent(new CustomEvent('reserve-button-clicked'));
-    }
-  }
+				resources: {
+					type: Object
+				},
+				hotel: {
+					type: Object,
+					value: {}
+				}
+			};
+		}
+		_fireMapClick(e) {
+			e.preventDefault();
+			//TODO: fire event here
+			document.querySelector('t-hotel-map')._showThumbnail = false;
+			this.dispatchEvent(new CustomEvent('map-icon-clicked'));
+		}
 
-window.customElements.define(HotelOverview.is, HotelOverview);
-    </script>
-  </dom-module>
+			_fireReserveClick(e) {
+				this.dispatchEvent(new CustomEvent('reserve-button-clicked'));
+			}
+
+			_shareOnPlatform(e, selection){
+				const value = selection.item.label;
+				this.dispatchEvent(new CustomEvent('on-share', {detail: {platform: value}}));
+			}
+
+			_fireFavoriteActionEvent(e){
+				this.dispatchEvent(new CustomEvent('on-favorite-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+}
+			_fireReserveEvent(e){
+				this.dispatchEvent(new CustomEvent('on-reserve-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+}
+		}
+
+		window.customElements.define(HotelOverview.is, HotelOverview);
+	</script>
+</dom-module>
