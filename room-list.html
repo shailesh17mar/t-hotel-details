@@ -17,6 +17,7 @@ Example:
 
 <dom-module id="room-list">
   <template>
+
     <style include="hotel-details-styles">
       :host {
         display: block;
@@ -110,25 +111,26 @@ Example:
         }
       }
     </style>
+
     <div class="toggle-header row-md">
-      <template is="dom-if" if="[[!_isRoomSelected(selectedIndex)]]">
-        <a class="row header-option-row" href="#" on-click="toggleCollapse">
+      <template is="dom-if" if="[[!_isRoomSelected(selected)]]">
+        <div class="flex" >
           <h3>[[resources.room]] [[index]]:</h3>
           <p>[[resources.options]] for [[count]] [[resources.guests]]</p>
-        </a>
+        </div>
       </template>
-      <template is="dom-if" if="[[_isRoomSelected(selectedIndex)]]">
+      <template is="dom-if" if="[[_isRoomSelected(selected)]]">
         <div class="flex">
-          <h3>[[resources.room]] [[index]]: [[_getAmenities(roomTypes)]] | [[count]] [[resources.guests]]</h3>
-          <p>[[resources.options]]: [[_getAmenities(roomTypes)]]</p>
+          <h3>[[resources.room]] [[index]]: [[_getAmenities(roomTypes, selected)]] | [[count]] [[resources.guests]]</h3>
+          <p>[[resources.options]]: [[_getAmenities(roomTypes, selected)]]</p>
         </div>
       </template>
       <div class="row price-row">
-        <template is="dom-if" if="[[_isRoomSelected(selectedIndex)]]">
+        <template is="dom-if" if="[[_isRoomSelected(selected)]]">
           <p>[[resources.room]] [[index]] [[resources.total]]:</p>
-          <h3 class="price">$1330</h3>
+          <h3 class="price">[[_getTotalAmount(roomTypes, selected, nights )]]</h3>
         </template>
-        <a href="#" class="link-style" on-click="toggleCollapse">[[resources.change]]</a>
+        <a href="#" class="link-style" on-click="toggleCollapse">[[_getLabel(opened)]]</a>
       </div>
     </div>
 
@@ -152,7 +154,7 @@ Example:
           </div>
         </div>
         <template is="dom-repeat" items="[[roomTypes]]">
-          <hotel-room amenities="[[amenities]]" resources="[[resources]]" room="[[item]]"></hotel-room>
+          <hotel-room selected="[[_isSelected(index, selected)]]" on-selection-change="_selectionChanged" amenities="[[amenities]]" resources="[[resources]]" room="[[item]]"></hotel-room>
         </template>
         <a href="#" class="link-style show-more-rooms row" role="button">SHOW MORE ROOMS</a>
       </div>
@@ -161,6 +163,7 @@ Example:
   </template>
   <script>
     class RoomList extends Polymer.Element {
+
       static get is() {
         return 'room-list';
       }
@@ -175,8 +178,12 @@ Example:
             type: Number,
             value: 1
           },
+          nights: {
+            type: Number,
+            value: 1
+          },
           roomTypes: Array,
-          selectedIndex: {
+          selected: {
             type: Number,
             value: -1
           },
@@ -186,10 +193,13 @@ Example:
         };
       }
 
-      _getAmenities(roomTypes){
-        const { roomViews, bedDetails } = roomTypes[this.selectedIndex];
-        return roomViews.join(' | ') + ' | ' + bedDetails.map( bed => `${bed.count} #{bed.description}`).join(' | ');
+      _getAmenities(roomTypes, selected){
+        const { roomViews, bedDetails } = roomTypes[selected];
+        if(roomViews && bedDetails){
+        return roomViews.join(' | ') + ' | ' + bedDetails.map( bed => `${bed.count} ${bed.desc}`).join(' | ');
       }
+        return '';
+        }
 
       toggleCollapse(e){
         e.preventDefault();
@@ -197,8 +207,38 @@ Example:
         this.$.collapse.toggle();
       }
 
-      _isRoomSelected(selectedIndex){
-        return selectedIndex >= 0;
+      _isRoomSelected(selected){
+        return selected >= 0;
+      }
+
+      _isSelected(index,selected){
+        return index === selected;
+      }
+
+      _selectionChanged(e){
+        const { selected } = e.detail;
+        this.selected = selected? e.model.index: -1;
+        this.dispatchEvent(new CustomEvent('room-selection', {
+          detail: {
+            room: this.selected,
+            amount: this._getTotalAmount(this.roomTypes, this.selected, this.nights)
+          }
+        })
+        );
+      }
+
+_getLabel(opened){
+return opened? this.resources.close: this.resources.change;
+}
+
+      _getTotalAmount(roomTypes, selected, nights){
+        if(selected >= 0){
+          const roomType = roomTypes[selected];
+          const fare = roomType.roomRate.fare;
+          const discountedFare = fare.totalFare - fare.totalDiscount;
+          return nights * discountedFare;
+        }
+        return '';
       }
 
     }

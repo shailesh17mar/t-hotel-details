@@ -46,6 +46,7 @@
         hotelDetailsComponent.rooms = {
           loading: false,
           count: 2,
+          nights: 1,
           list: [
             {
               id: "8025ec42-019e-494d-b822-801ab926d8ec",
@@ -147,9 +148,10 @@
               desc: "",
               availableRoomCount: 0,
               maxOccupancy: 0,
-              adultOccupancy: 1,
+              adultOccupancy: 2,
               childOccupancy: 0,
               smokingIndicator: "Unknown",
+              isPrepaid: false,
               roomRate: {
                 fare: {
                   currency: "USD",
@@ -162,9 +164,9 @@
                   totalDiscount: 0.0,
                   totalFare: 818.85
                 },
-                id: "9863fd7c-e0ba-4aa6-a69c-20d3a139332c_13ymjvdineo_1153848_0##MTQ4MDU7MjAyMzUwMjsxMjg5MzA7MjsxOzBffFVTR3xfMjAyMzUwMl98VVNHfF8xLDFffFVTR3xfX3xVU0d8XzU=",
+                id: "9863fd7c-e0ba-4aa6-a69c-20d3a139332c_13ymjvdineo_1153848_0##MTQ4MDU7MjAyMzUwMjsxMjg5MzA7MjsyOzA7MV98VVNHfF8yMDIzNTAyX3xVU0d8XzIsMV98VVNHfF9ffFVTR3xfNQ==",
                 desc: null,
-                code: "14805;2023502;128930;2;1;0",
+                code: "14805;2023502;128930;2;2;0;1",
                 isPrepaid: true,
                 rateType: "Negotiated",
                 depositRequired: false,
@@ -177,25 +179,63 @@
                 refundability: "Unknown",
                 dailyRate: [
                   {
-                    date: "2017-01-02",
-                    amount: 24.55,
-                    discount: 10,
-                    taxIncluded: "true"
+                    "date": "2017-01-02",
+                    "amount": 24.55,
+                    "discount": 10,
+                    "taxIncluded": "true"
                   }
                 ],
                 boardBasis: {
-                  code: null,
-                  desc: "Continental Breakfast",
-                  type: "BedAndBreakfast"
+                  "code": null,
+                  "desc": "Continental Breakfast",
+                  "type": "BedAndBreakfast"
                 },
-                cancellationPolicy: null,
-                offer: null,
-                policies: []
+                cancellationPolicy: {
+                  text: "Cancellations or changes made during the applicable cancellation window are subject to a $50 penalty",
+                  penaltyRules: [
+                    {
+                      "value": 12.34,
+                      "estimatedValue": 15.5,
+                      "valueType": "Amount",
+                      "window": {
+                        "start": "2017-01-01T01:03",
+                        "end": "2017-01-25T01:30"
+                      }
+                    }
+                  ]
+                },
+                offer: {
+                  title: "Summer Free Nights Bonanza",
+                  desc: "Stay for 5 nights and get 2 nights free",
+                  discountOffer: 0,
+                  percentageDiscountOffer: 0,
+                  stayOffer: {
+                    stayNights: 5,
+                    freeNights: 2
+                  }
+                },
+                policies: [
+                  {
+                    type: "Cancellation",
+                    text: "Cancellations must be made at least 3 days prior to arrival in order to avoid a full-stay penalty, but not to exceed 3 nights room & tax. For example, a cancellation penalty for a 2-night stay will be 2 nights room and tax. A cancellation penalty for a 5-night stay will be 3 nights room and tax" 
+                  }
+                ]
               },
               recommendationId: "02158680-897f-4111-8a53-664f78b3bd83",
-              bedDetails: null,
-              roomViews: [],
-              group: 1
+              bedDetails: [
+                {
+                  type: "Queen",
+                  desc: "Queen-size bed",
+                  count: 2
+                },
+                {
+                  type: "King",
+                  desc: "King-size bed",
+                  count: 1
+                }
+              ],
+              roomViews: [ "Front view", "Sea View"],
+              group: 0
             }
           ]
         };
@@ -233,6 +273,8 @@
 						"foundRightProperty" : "Didn't find the right property?",
 						"continueSearch" : "CONTINUE TO SEARCH",
 						"total": "Total",
+            "until": "Until",
+            "from": "From",
 						"map": {
 							"heading": "View in map"
 						}
@@ -241,6 +283,7 @@
 						"guests" : "Guests",
 						"room" : "Room",
 						"roomType" : "Room Type",
+            "week": "Week",
 						"max" : "Max",
 						"options" : "Options",
 						"price" : "Price",
@@ -249,6 +292,7 @@
 						"more" : "more",
 						"roomPolicy" : "Room Policy",
             "change" : "Change",
+            "close" : "Close",
 						"showMoreRooms" : "Show More Rooms",
             "isPrepaid": "Book now pay later",
             "freeCancellation": "Free Cancellation",
@@ -280,7 +324,7 @@
         };
 
         hotelDetailsComponent.details = {
-          googleApiKey:  'AIzaSyCT5zC7NQ1lzgAzPPu5W0jycrHkI-rYuB8',
+          googleApiKey:  'AIzaSyDOBu6zoxM_YMC2M73idWgXZ8tg_o2JhHc',
           amenities: [
             { "name": "Pay movies", "description": null, "category": null },
             { "name": "Poolside bar", "description": null, "category": "Bar" },
@@ -373,8 +417,8 @@
           },
           checkinCheckoutPolicy: [
             {
-              "inTime": "15:0",
-              "outTime": "11:0",
+              "inTime": "15:00",
+              "outTime": "11:00",
               "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
             }
           ]

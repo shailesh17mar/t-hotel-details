@@ -73,24 +73,22 @@ Example:
         .popular-things-container,
         .bottom-container .item {
           flex: 1 0 25%;
-
+          max-width: 400px;
         }
       }
     </style>
 
-
     <div class="row-md flex-align-start-md ">
       <div class="margin-b hotel-description">
         <template is="dom-repeat" items="[[descriptions]]">
-          <hotel-details-info collapse-length="528" text-content="[[item.value]]"></hotel-details-info>
+          <hotel-details-info expanded="[[expandedDescription]]" collapse-length="528" text-content="[[item.value]]"></hotel-details-info>
         </template>
-
       </div>
       <div class="margin-b popular-things-container">
         <hotel-details-info heading="[[resources.pointOfInterest]]" class="popular-things" list-items="[[pointsOfInterest]]"></hotel-details-info>
       </div>
     </div>
-    <div class="bottom-container row-md flex-align-start-md">
+    <div class="bottom-container flex row-md flex-align-start-md">
       <template is="dom-repeat" items="[[amenities]]">
         <div class="margin-b item">
           <hotel-details-info heading="[[item.type]]" class="popular-things" list-items="[[item.offerings]]"></hotel-details-info>
@@ -99,9 +97,9 @@ Example:
       <div class="margin-b item">
         <hotel-details-info heading="Hotel Policies" class="popular-things" >
           <div slot="content">
-            <hotel-details-info class="info-child" heading="Check In" class="popular-things" text-content="From 3:00 pm"> </hotel-details-info>
-            <hotel-details-info class="info-child" heading="Check Out" class="popular-things" text-content="Until 12:00 pm"> </hotel-details-info>
-            <hotel-details-info class="info-child cancellation-policy" 
+            <hotel-details-info class="info-child" heading="[[resources.checkIn]]" class="popular-things" text-content="[[resources.from]] [[checkinCheckoutPolicy.inTime]]"> </hotel-details-info>
+            <hotel-details-info class="info-child" heading="[[resources.checkOut]]" class="popular-things" text-content="[[resources.until]] [[checkinCheckoutPolicy.outTime]]"> </hotel-details-info>
+            <hotel-details-info collapse-length="300" class="info-child cancellation-policy" 
               heading="[[resources.cancellationPolicy]]"
               class="popular-things"
               text-content="[[cancellationPolicy]]"
@@ -135,8 +133,10 @@ Example:
           pointsOfInterest:Array,
           resources: Object,
           descriptions: Array,
+          expandedDescription: Boolean,
           amenities: Array,
           cancellationPolicy: String,
+          checkinCheckoutPolicy: Object,
           cardsSupported:Array
         }
       }

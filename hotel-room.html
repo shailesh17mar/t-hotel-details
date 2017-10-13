@@ -211,7 +211,7 @@ Example:
         margin: 0;
       }
 
-      paper-button[active] {
+      paper-button.active {
         color: #fff;
         background-color: var(--link-color);
       }
@@ -315,9 +315,9 @@ Example:
                 [[room.roomRate.fare.currency]] [[_getDiscountedPrice(room)]]
               </h4>
               <p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
-              <paper-button toggles active="{{btnActive}}">
-                <span hidden$="[[btnActive]]">[[resources.select]]</span>
-                <span hidden$="[[!btnActive]]">[[resources.selected]]</span>
+              <paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
+                <span hidden$="[[selected]]">[[resources.select]]</span>
+                <span hidden$="[[!selected]]">[[resources.selected]]</span>
               </paper-button>
             </div>
           </div>
@@ -378,10 +378,10 @@ Example:
             <h4 class="final-price">
               [[room.roomRate.fare.currency]] [[_getDiscountedPrice(room)]]
             </h4>
-            <p class="avg-daily-info">2 [[resoruces.nightFare]]</p>
-            <paper-button toggles active="{{btnActive}}">
-              <span hidden$="[[btnActive]]">[[resources.select]]</span>
-              <span hidden$="[[!btnActive]]">[[resources.selected]]</span>
+            <p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
+            <paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
+              <span hidden$="[[selected]]">[[resources.select]]</span>
+              <span hidden$="[[!selected]]">[[resources.selected]]</span>
             </paper-button>
             <p class="extra-discount-info" hidden$="[[!isPrepaid]]"><span class="tags"> [[resources.isPrepaid]]</span></p>
             <p class="extra-discount-info" hidden$="[[_hideIfPenaltyExists(room.roomRate.cancellationPolicy)]]"><span class="tags">[[resources.freeCancellation]]</span></p>
@@ -416,6 +416,7 @@ Example:
             type: Boolean,
             value: false
           },
+          index: Number,
           room: {
             type: Object,
             value: {}
@@ -426,6 +427,10 @@ Example:
           },
           count: Number,
           amenities: Array,
+          selected: {
+            type:Boolean,
+            value: false
+          },
           _amenitiesCategories: {
             type: Array,
             value: [ 'television', 'swimming pool', 'internet']
@@ -465,7 +470,7 @@ Example:
 
       _clickedImage(e) {
         e.preventDefault();
-        this.dispatchEvent(new CustomEvent('room-image-clicked'), this.room);
+        this.dispatchEvent(new CustomEvent('room-image-clicked', this.room));
       }
 
       _togglePolicyDialog(){
@@ -507,7 +512,19 @@ Example:
         return weeks;
       }
 
-    }
-window.customElements.define(HotelRoom.is, HotelRoom);
+        _getToggleState(selected){
+          return selected? 'active': null;
+        }
+
+        _fireSelectionChanged(e){
+          this.dispatchEvent(new CustomEvent('selection-change', {
+            detail: {
+              selected: !this.selected 
+            }
+          }));
+        }
+
+      }
+        window.customElements.define(HotelRoom.is, HotelRoom);
   </script>
 </dom-module>

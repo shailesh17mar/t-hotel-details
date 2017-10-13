@@ -116,7 +116,6 @@ Example:
 
       static get properties() {
         return {
-
           noHeading:{
             type: Boolean,
             value:false
@@ -213,6 +212,8 @@ Example:
         } else if (this.textContent.length > 0) {
           this._concludeTextContent();
         }
+
+				this.dispatchEvent(new CustomEvent('expand-content'));
       }
 
       _findIfHidden(_actualCollapseLength) {

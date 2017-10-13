@@ -217,6 +217,7 @@
 				}
 			};
 		}
+
 		_fireMapClick(e) {
 			e.preventDefault();
 			//TODO: fire event here
@@ -230,14 +231,14 @@
 
 			_shareOnPlatform(e, selection){
 				const value = selection.item.label;
-				this.dispatchEvent(new CustomEvent('on-share', {detail: {platform: value}}));
+				this.dispatchEvent(new CustomEvent('share', {detail: {platform: value}}));
 			}
 
 			_fireFavoriteActionEvent(e){
-				this.dispatchEvent(new CustomEvent('on-favorite-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+				this.dispatchEvent(new CustomEvent('favorite-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
 }
 			_fireReserveEvent(e){
-				this.dispatchEvent(new CustomEvent('on-reserve-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+				this.dispatchEvent(new CustomEvent('reserve-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
 }
 		}
 
