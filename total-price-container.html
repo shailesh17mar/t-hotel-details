@@ -66,19 +66,25 @@ Example:
         </dl>
         <h5>[[resources.priceInclusive]]</h5>
       </div>
-      <paper-button class="primary" raised>[[resources.continueToCheckout]]</paper-button>
+      <paper-button class="primary" on-click="_fireCheckoutEvent" raised>[[resources.continueToCheckout]]</paper-button>
     </div>
   </template>
   <script>
     class TotalPriceContainer extends Polymer.Element {
+
       static get is() {
         return 'total-price-container';
       }
+
       static get properties() {
         return {
           resources: Object,
           amount: String
         };
+      }
+
+      _fireCheckoutEvent(e){
+        this.dispatchEvent(new CustomEvent('checkout'));
       }
 
     }
