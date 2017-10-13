@@ -3,6 +3,8 @@
 <link rel="import" href="trust-you.html">
 <link rel="import" href="hotel-room.html">
 <link rel="import" href="room-list.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="popular-amenities.html">
 <link rel="import" href="about-the-hotel.html">
 <link rel="import" href="total-price-container.html">
@@ -29,65 +31,65 @@ Example:
 <dom-module id="t-hotel-details">
   <template>
     <style include="hotel-details-styles">
-    :host {
-      display: block;
-    }
+      :host {
+        display: block;
+      }
 
-    #hotelRoom {
-      margin-top: 10px;
-    }
+      #hotelRoom {
+        margin-top: 10px;
+      }
 
-    .host {
-      @apply(--layout-vertical);
-      padding: 20px;
-      --paper-tabs-selection-bar-color: #1976d2;
-      --paper-tab-content-unselected: {
+      .host {
+        @apply(--layout-vertical);
+        padding: 20px;
+        --paper-tabs-selection-bar-color: #1976d2;
+        --paper-tab-content-unselected: {
+          color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
+        };
+        --paper-tab: {
+          @apply --layout-flex-none;
+          padding: 0 20px;
+        };
+      }
+
+      .carousel-container {
+        height: 250px;
+      }
+
+      .map-container {
+        height: 210px;
+        overflow: hidden;
+      }
+      .map-container .column{
+        height: 100%;
+      }
+
+      .extra-detail iron-icon {
+        padding: 6px;
+        height: 30px;
+        width: 30px;
+        min-width: 30px;
+        border-radius: 50%;
+        background: var(--trust-you-green-color, #7cb342);
+        color: #fff;
+        margin: 5px;
+      }
+
+      .extra-detail p {
+        font-size: 16px;
         color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
-      };
-      --paper-tab: {
-        @apply --layout-flex-none;
-        padding: 0 20px;
-      };
-    }
+      }
 
-    .carousel-container {
-      height: 250px;
-    }
+      .popular-Amenties {
+        margin: 15px 0;
+      }
 
-    .map-container {
-      height: 210px;
-overflow: hidden;
-    }
-    .map-container .column{
-      height: 100%;
-    }
-
-    .extra-detail iron-icon {
-      padding: 6px;
-      height: 30px;
-      width: 30px;
-      min-width: 30px;
-      border-radius: 50%;
-      background: var(--trust-you-green-color, #7cb342);
-      color: #fff;
-      margin: 5px;
-    }
-
-    .extra-detail p {
-      font-size: 16px;
-      color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
-    }
-
-    .popular-Amenties {
-      margin: 15px 0;
-    }
-
-    .search-container {
-      height: 200px;
-      width: 100%;
-      background: #ccc;
-      margin-bottom: 15px;
-    }
+      .search-container {
+        height: 200px;
+        width: 100%;
+        background: #ccc;
+        margin-bottom: 15px;
+      }
 
       #hotelRoom {
         margin-top: 10px;
@@ -221,85 +223,85 @@ overflow: hidden;
         </div>
         <div class="row column-md trust-you-area">
           <div hidden$="[[!details.userReview]]" class="trust-you flex" >
-          <trust-you class="flex" rating="[[details.userReview.rating]]" review-type="[[  details.userReview.type ]]" review-count="[[details.userReview.count]]"></trust-you>
+            <trust-you class="flex" rating="[[details.userReview.rating]]" review-type="[[  details.userReview.type ]]" review-count="[[details.userReview.count]]"></trust-you>
           </div>
-        <div class="row column-md extra-detail not-tablet">
-          <template is="dom-repeat" items="[[details.areaAttractions]]" filter="_isWithin5Kms" observe="description">
-            <div class="detail-item row-md">
-              <iron-icon icon="[[item.icon]]"></iron-icon>
-              <p class="not-mobile">[[item.name]]</p>
-            </div>
-          </template>
-        </div>
-        <div class="map-container not-mobile">
-          <div class="column">
-            <h2 class="heading-label">[[resources.details.map.heading]]</h2>
-            <div class="flex-item">
-              <t-hotel-map api-key="[[details.googleApiKey]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[detail.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
+          <div class="row column-md extra-detail not-tablet">
+            <template is="dom-repeat" items="[[details.areaAttractions]]" filter="_isWithin5Kms" observe="description">
+              <div class="detail-item row-md">
+                <iron-icon icon="[[item.icon]]"></iron-icon>
+                <p class="not-mobile">[[item.name]]</p>
+              </div>
+            </template>
+          </div>
+          <div class="map-container not-mobile">
+            <div class="column">
+              <h2 class="heading-label">[[resources.details.map.heading]]</h2>
+              <div class="flex-item">
+                <t-hotel-map api-key="[[details.googleApiKey]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[detail.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="not-mobile row-md flex-align-start-md ">
+        <hotel-details-info class="hotel-description" heading="[[resources.details.description]]" collapse-length="528" text-content="[[details.descriptions.0.value]]" on-expand-content="_scrollToMainDescription"></hotel-details-info>
+        <hotel-details-info class="popular-things-container" heading="[[resources.details.pointsOfInterest]]" class="popular-things" list-items="[[details.pointsOfInterest]]"></hotel-details-info>
+      </div>
+
+      <popular-amenities
+        class="popular-Amenties"
+        heading="[[resources.details.mostPopularAmenities]]"
+        popular-static-amenities="[[details.popularStaticAmenities]]">
+      </popular-amenities>
+
+      <div class="vertical-divider not-mobile"></div>
+      <div class="search-container">
+        <slot name="search-widget"></slot>
+      </div>
+
+      <template is="dom-repeat" items="[[_getRoomsArray(rooms.count)]]" as="type">
+        <room-list on-room-selection="_updatePrice" nights="[[rooms.nights]]" selected="{{type}}" count="[[rooms.count]]" resources="[[resources.rooms]]" index="[[_incrementByOne(index)]]" room-types="[[rooms.list]]" amenities="[[details.amenities]]"></room-list>
+      </template>
+
+      <total-price-container id="checkout" amount="[[_calculatedCost]]" resources="[[resources.details]]"></total-price-container>
+
+      <div class="mobile-view">
+        <t-hotel-map points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
+      </div>
+      <paper-tabs selected="{{_selectedTab}}" class="bottom-tabs">
+        <paper-tab>[[resources.details.aboutHotel]]</paper-tab>
+        <paper-tab>[[resources.details.guestReviews]]</paper-tab>
+      </paper-tabs>
+      <iron-pages selected="{{_selectedTab}}">
+        <section>
+          <about-the-hotel
+            id="about"
+            cancellation-policy="[[details.cancellationPolicy]]"
+            points-of-interest="[[details.pointsOfInterest]]" 
+            resources="[[resources.details]]" 
+            descriptions="[[details.descriptions]]" 
+            amenities="[[details.amenities]]" 
+            cards-supported="[[details.cardsSupported]]"
+            checkin-checkout-policy="[[details.checkinCheckoutPolicy.0]]"
+            >
+          </about-the-hotel>
+        </section>
+        <section>
+          Guest Review section
+        </section>
+      </iron-pages>
+
+      <hotel-details-research
+        resources="[[resources.details.help]]"></hotel-details-research>
+      <!-- <hotel-details-info class="oldInfo"></hotel-details-info>
+
+      <hotel-details-info id="text"></hotel-details-info>
+      <hotel-room id="hotelRoom"></hotel-room> -->
     </div>
-    <div class="not-mobile row-md flex-align-start-md ">
-      <hotel-details-info class="hotel-description" heading="[[resources.details.description]]" collapse-length="528" text-content="[[details.descriptions.0.value]]" on-expand-content="_scrollToMainDescription"></hotel-details-info>
-      <hotel-details-info class="popular-things-container" heading="[[resources.details.pointsOfInterest]]" class="popular-things" list-items="[[details.pointsOfInterest]]"></hotel-details-info>
-    </div>
+  </template>
 
-    <popular-amenities
-      class="popular-Amenties"
-      heading="[[resources.details.mostPopularAmenities]]"
-      popular-static-amenities="[[details.popularStaticAmenities]]">
-    </popular-amenities>
-
-    <div class="vertical-divider not-mobile"></div>
-    <div class="search-container">
-      <slot name="search-widget"></slot>
-    </div>
-
-    <template is="dom-repeat" items="[[_getRoomsArray(rooms.count)]]" as="type">
-      <room-list on-room-selection="_updatePrice" nights="[[rooms.nights]]" selected="{{type}}" count="[[rooms.count]]" resources="[[resources.rooms]]" index="[[_incrementByOne(index)]]" room-types="[[rooms.list]]" amenities="[[details.amenities]]"></room-list>
-    </template>
-
-    <total-price-container id="checkout" amount="[[_calculatedCost]]" resources="[[resources.details]]"></total-price-container>
-
-    <div class="mobile-view">
-      <t-hotel-map points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
-    </div>
-    <paper-tabs selected="{{_selectedBottomTab}}" class="bottom-tabs">
-      <paper-tab>[[resources.details.aboutHotel]]</paper-tab>
-      <paper-tab>[[resources.details.guestReviews]]</paper-tab>
-    </paper-tabs>
-    <iron-pages selected="{{_selectedBottomTab}}">
-      <section>
-        <about-the-hotel
-          id="about"
-          cancellation-policy="[[details.cancellationPolicy]]"
-          points-of-interest="[[details.pointsOfInterest]]" 
-          resources="[[resources.details]]" 
-          descriptions="[[details.descriptions]]" 
-          amenities="[[details.amenities]]" 
-          cards-supported="[[details.cardsSupported]]"
-          checkin-checkout-policy="[[details.checkinCheckoutPolicy.0]]"
-          >
-        </about-the-hotel>
-      </section>
-      <section>
-        Guest Review section
-      </section>
-    </iron-pages>
-
-    <hotel-details-research
-      resources="[[resources.details.help]]"></hotel-details-research>
-    <!-- <hotel-details-info class="oldInfo"></hotel-details-info>
-
-    <hotel-details-info id="text"></hotel-details-info>
-    <hotel-room id="hotelRoom"></hotel-room> -->
-  </div>
-</template>
-
-<script>
-  class THotelDetails extends Polymer.Element {
+  <script>
+    class THotelDetails extends Polymer.Element {
 
       static get is() {
         return 't-hotel-details';
@@ -315,57 +317,52 @@ overflow: hidden;
 
           resources: Object,
 
-					_pricesArray: Array,
+          _pricesArray: Array,
 
-					_calculatedCost: {
-type: Number,
-value: 0
-},
-
-          _selectedBottomTab:{
-            type:Number,
+          _calculatedCost: {
+            type: Number,
             value: 0
           }
         }
       }
 
-    _isWithin5Kms(attraction) {
-      const distanceString = attraction.description.split(' ')[1];
-      const distance = parseInt(distanceString.replace('--',''));
-      return distance <= 5;
-    }
+      _isWithin5Kms(attraction) {
+        const distanceString = attraction.description.split(' ')[1];
+        const distance = parseInt(distanceString.replace('--',''));
+        return distance <= 5;
+      }
 
-    _getRoomsArray(count){
-      return new Array(count);
-    }
+      _getRoomsArray(count){
+        return new Array(count);
+      }
 
-    _incrementByOne(index){
-      return index + 1;
-    }
+      _incrementByOne(index){
+        return index + 1;
+      }
 
-    _scrollToCheckout(){
-      this.$.checkout.scrollIntoView();
-    }
+      _scrollToCheckout(){
+        this.$.checkout.scrollIntoView();
+      }
 
-    _scrollToMainDescription(){
-      this.$.about.expandedDescription = true;
-      this.$.about.scrollIntoView();
-    }
+      _scrollToMainDescription(){
+        this.$.about.expandedDescription = true;
+        this.$.about.scrollIntoView();
+      }
 
-    _updatePrice(e){
-			const { room, amount } = e.detail;
-			if(!this._pricesArray){
-				this._pricesArray = new Array(this.count);
-			}
-			this._pricesArray[room] = amount;
-			this._calculatedCost =  this._pricesArray.reduce((sum, price) => {
-				sum = sum + price;
-				return sum;
-			},0);
-			debugger;
-		}
+      _updatePrice(e){
+        const { room, amount } = e.detail;
+        if(!this._pricesArray){
+          this._pricesArray = new Array(this.count);
+        }
+        this._pricesArray[room] = amount;
+        this._calculatedCost =  this._pricesArray.reduce((sum, price) => {
+          sum = sum + price;
+          return sum;
+        },0);
+        debugger;
+      }
 
-	};
+    };
 
 window.customElements.define(THotelDetails.is, THotelDetails);
 </script>

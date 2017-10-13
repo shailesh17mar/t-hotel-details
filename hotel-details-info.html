@@ -184,7 +184,7 @@ Example:
       }
 
       _concludeListItems() {
-        // this._listItems = this.expanded ? this.listItems : (this.listItems.length > this.collapseLength? this.listItems.splice(0,this._actualCollapseLength): this.listItems);
+        if(this.listItems){
         let items = this.listItems.slice(0);
         if (this.expanded) {
           this._listItems = items;
@@ -194,6 +194,7 @@ Example:
           } else {
             this._listItems = items;
           }
+        }
         }
       }
 
