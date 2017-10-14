@@ -237,7 +237,17 @@ Example:
             <div class="column">
               <h2 class="heading-label">[[resources.details.map.heading]]</h2>
               <div class="flex-item">
-                <t-hotel-map api-key="[[details.googleApiKey]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[detail.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
+                <t-hotel-map id="map" api-key="[[details.googleApiKey]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details]]" center="[[detail.geoCode]]" enable-directions enable-nearby >
+
+                  <hotel-overview
+                    slot="overview"
+                    is-light-header
+                    resources="[[resources.overview]]"
+                    hotel="[[_getMapHeader(overview)]]"
+                    on-reserve-tap="_scrollToCheckout"
+                    >
+                  </hotel-overview>
+                </t-hotel-map>
               </div>
             </div>
           </div>
@@ -266,7 +276,7 @@ Example:
       <total-price-container id="checkout" amount="[[_calculatedCost]]" resources="[[resources.details]]"></total-price-container>
 
       <div class="mobile-view">
-        <t-hotel-map points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby enable-directions></t-hotel-map>
+        <t-hotel-map api-key="[[details.googleApiKey]]" points-of-interest="[[details.pointsOfInterest]]" resources="[[resources.details.map]]" center="[[details.geoCode]]" heading="[[overview.name]]" sub-heading="[[overview.address]]" location-name="[[overview.address]]" location-details="[[overview.address]]" enable-nearby ></t-hotel-map>
       </div>
       <paper-tabs selected="{{_selectedTab}}" class="bottom-tabs">
         <paper-tab>[[resources.details.aboutHotel]]</paper-tab>
@@ -341,6 +351,7 @@ Example:
       }
 
       _scrollToCheckout(){
+        this.$.map._showThumbnail = true;
         this.$.checkout.scrollIntoView();
       }
 
@@ -360,6 +371,14 @@ Example:
           return sum;
         },0);
         debugger;
+      }
+
+      _getMapHeader(overview){
+        return {
+					name: 'THE WESTIN LAKE LAS VEGAS RESORT SPA',
+					address: '101 MONTELAGO BOULEVARD  HENDERSON',
+					rating: 5
+        };
       }
 
     };

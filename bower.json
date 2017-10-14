@@ -19,7 +19,8 @@
     "gold-cc-input": "PolymerElements/gold-cc-input#^2.0.0",
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
     "t-search": "nxtComponent/t-hotel-search",
-    "web-animations-js": "web-animations/web-animations-js#^2.2"
+    "web-animations-js": "web-animations/web-animations-js#^2.2",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.1.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

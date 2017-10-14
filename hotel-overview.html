@@ -132,9 +132,10 @@
 						<star-rating  rating="[[hotel.rating]]"></star-rating>
 					</div>
 
+          <template is="dom-if" if="[[!isLightHeader]]">
 					<div class="icons-header row flex">
-						<paper-icon-button active ="{{hotel.isFavorite}}" on-click="_fireFavoriteActionEvent" class="favorite" icon="[[resources.favorite]]" toggles></paper-icon-button>
-						<paper-menu-button on-iron-select="_shareOnPlatform"  class="header-menu-button">
+						<paper-icon-button  active ="{{hotel.isFavorite}}" on-click="_fireFavoriteActionEvent" class="favorite" icon="[[resources.favorite]]" toggles></paper-icon-button>
+						<paper-menu-button  on-iron-select="_shareOnPlatform"  class="header-menu-button">
 							<paper-icon-button icon="[[resources.share]]" slot="dropdown-trigger" alt="menu"></paper-icon-button>
 							<paper-listbox slot="dropdown-content">
 								<template is="dom-repeat" items="[[hotel.sharingPlatforms]]">
@@ -146,102 +147,111 @@
 							</paper-listbox>
 						</paper-menu-button>
 					</div>
+        </template>
 				</div>
 				<p class="margin-b">[[hotel.address]]</p>
-				<div class="row">
-					<a href="tel:[[hotel.phone]]" class="row margin-r">
-						<iron-icon icon="communication:call"></iron-icon>
-						<span class="margin-l">
-							[[hotel.phone]]
-						</span>
-					</a>
-					<template is="dom-if" if="[[ hotel.distance ]]">
-						<dl class="row">
-							<dt>[[resources.cityCenter]]:&nbsp;</dt>
-							<dd>[[hotel.distance]] [[resources.distanceUnit]]</dd>
-						</dl>
-					</template>
-					<a href="#" role="button" class="margin-l">
-						<iron-icon icon="communication:location-on" on-click="_fireMapClick"> </iron-icon>
-					</a>
-				</div>
-			</div>
-			<div class="right-container">
-				<div class="row  align-end">
-					<dl class="row margin-r align-end">
-						<div>
-							<dt hidden>[[resource.discount]]</dt>
-							<dd class="margin-r-small" aria-label="[[resources.discount]]">
-								<span class="discount">-[[hotel.price.discount]]</span>
-							</dd>
-						</div>
-						<div>
-							<dt aria-hidden="true" class="margin-b resource-label text-right">
-								[[resource.price]]
-							</dt>
-							<dd class="row">
-								<span aria-hidden="true" class="originalPrice margin-r-small">[[hotel.price.originalPrice]]</span>
-								<span class="bookPrice">[[hotel.price.bookingPrice]]</span>
-							</dd>
-						</div>
-					</dl>
-					<paper-button raised class="primary-btn" on-click="_fireReserveEvent">[[resources.reserve]]</paper-button>
-				</div>
-			</div>
-		</div>
-	</template>
-	<script>
+        <div class="row">
+          <template is="dom-if" if="[[!isLightHeader]]">
+            <a href="tel:[[hotel.phone]]" class="row margin-r">
+              <iron-icon icon="communication:call"></iron-icon>
+              <span class="margin-l">
+                [[hotel.phone]]
+              </span>
+            </a>
+            <template is="dom-if" if="[[ hotel.distance ]]">
+              <dl class="row">
+                <dt>[[resources.cityCenter]]:&nbsp;</dt>
+                <dd>[[hotel.distance]] [[resources.distanceUnit]]</dd>
+              </dl>
+            </template>
+            <a href="#" role="button" class="margin-l">
+              <iron-icon icon="communication:location-on" on-click="_fireMapClick"> </iron-icon>
+            </a>
+          </template>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="row  align-end">
+          <template is="dom-if" if="[[!isLightHeader]]">
+            <dl  class="row margin-r align-end">
+              <div>
+                <dt hidden>[[resource.discount]]</dt>
+                <dd class="margin-r-small" aria-label="[[resources.discount]]">
+                  <span class="discount">-[[hotel.price.discount]]</span>
+                </dd>
+              </div>
+              <div>
+                <dt aria-hidden="true" class="margin-b resource-label text-right">
+                  [[resource.price]]
+                </dt>
+                <dd class="row">
+                  <span aria-hidden="true" class="originalPrice margin-r-small">[[hotel.price.originalPrice]]</span>
+                  <span class="bookPrice">[[hotel.price.bookingPrice]]</span>
+                </dd>
+              </div>
+            </dl>
+          </template>
+          <paper-button raised class="primary-btn" on-click="_fireReserveEvent">[[resources.reserve]]</paper-button>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
 
-		/**
-		 * `hotel-overview`
-		 *
-		 * @customElement
-		 * @polymer
-		 * @demo demo/index.html
-		 */
+    /**
+     * `hotel-overview`
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
 
-	class HotelOverview extends Polymer.Element {
-		static get is() {
-			return 'hotel-overview';
-		}
+  class HotelOverview extends Polymer.Element {
+    static get is() {
+      return 'hotel-overview';
+    }
 
-		static get properties() {
-			return {
+    static get properties() {
+      return {
+        resources: {
+          type: Object
+        },
+        isLightHeader: {
+          type: Boolean,
+          value: false
+        },
+        hotel: {
+          type: Object,
+          value: {}
+        }
+      };
+    }
 
-				resources: {
-					type: Object
-				},
-				hotel: {
-					type: Object,
-					value: {}
-				}
-			};
-		}
+    _fireMapClick(e) {
+      e.preventDefault();
+      //TODO: fire event here
+      document.querySelector('t-hotel-map')._showThumbnail = false;
+      this.dispatchEvent(new CustomEvent('map-icon-clicked'));
+    }
 
-		_fireMapClick(e) {
-			e.preventDefault();
-			//TODO: fire event here
-			document.querySelector('t-hotel-map')._showThumbnail = false;
-			this.dispatchEvent(new CustomEvent('map-icon-clicked'));
-		}
+    _fireReserveClick(e) {
+      this.dispatchEvent(new CustomEvent('reserve-button-clicked'));
+    }
 
-			_fireReserveClick(e) {
-				this.dispatchEvent(new CustomEvent('reserve-button-clicked'));
-			}
+    _shareOnPlatform(e, selection){
+      const value = selection.item.label;
+      this.dispatchEvent(new CustomEvent('share', {detail: {platform: value}}));
+    }
 
-			_shareOnPlatform(e, selection){
-				const value = selection.item.label;
-				this.dispatchEvent(new CustomEvent('share', {detail: {platform: value}}));
-			}
+    _fireFavoriteActionEvent(e){
+      this.dispatchEvent(new CustomEvent('favorite-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+    }
+    
+    _fireReserveEvent(e){
+      this.dispatchEvent(new CustomEvent('reserve-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
+    }
+  }
 
-			_fireFavoriteActionEvent(e){
-				this.dispatchEvent(new CustomEvent('favorite-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
-}
-			_fireReserveEvent(e){
-				this.dispatchEvent(new CustomEvent('reserve-tap', {detail: {isFavorited: this.hotel.isFavorited}}));
-}
-		}
-
-		window.customElements.define(HotelOverview.is, HotelOverview);
-	</script>
+window.customElements.define(HotelOverview.is, HotelOverview);
+  </script>
 </dom-module>
