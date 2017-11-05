@@ -44,7 +44,7 @@ Example:
         padding: 20px;
         --paper-tabs-selection-bar-color: #1976d2;
         --paper-tab-content-unselected: {
-          color: var(--shade-semidark, rgba(0, 0, 0, 0.54));
+          color: var(--shade-semidark, #9f9f9f );
         };
         --paper-tab: {
           @apply --layout-flex-none;
@@ -156,6 +156,9 @@ Example:
       .bottom-tabs .iron-selected{
         color: var(--link-color);
       }
+      room-list{
+        margin: 5px 0;
+      }
       .heading-label{
         color: var(--shade-light);
         font-size: 14px;
@@ -212,6 +215,7 @@ Example:
         resources="[[resources.overview]]"
         hotel="[[overview]]"
         on-reserve-tap="_scrollToCheckout"
+        on-map-icon-tap="_showMapView"
         >
       </hotel-overview>
 
@@ -270,7 +274,7 @@ Example:
       </div>
 
       <template is="dom-repeat" items="[[_getRoomsArray(rooms.count)]]" as="type">
-        <room-list on-room-selection="_updatePrice" nights="[[rooms.nights]]" selected="{{type}}" count="[[rooms.count]]" resources="[[resources.rooms]]" index="[[_incrementByOne(index)]]" room-types="[[rooms.list]]" amenities="[[details.amenities]]"></room-list>
+        <room-list on-room-selection="_updatePrice" nights="[[rooms.nights]]" selected="{{index}}" count="[[rooms.count]]" resources="[[resources.rooms]]" index="[[_incrementByOne(index)]]" room-types="[[rooms.list]]" amenities="[[details.amenities]]"></room-list>
       </template>
 
       <total-price-container id="checkout" amount="[[_calculatedCost]]" resources="[[resources.details]]"></total-price-container>
@@ -296,8 +300,8 @@ Example:
             >
           </about-the-hotel>
         </section>
-        <section>
-          Guest Review section
+        <section >
+          <slot name="review-section"></slot>
         </section>
       </iron-pages>
 
@@ -329,6 +333,11 @@ Example:
 
           _pricesArray: Array,
 
+          _selectedTab:{
+            type: Number,
+            value: 0
+          },
+
           _calculatedCost: {
             type: Number,
             value: 0
@@ -338,51 +347,54 @@ Example:
 
       _isWithin5Kms(attraction) {
         const distanceString = attraction.description.split(' ')[1];
-        const distance = parseInt(distanceString.replace('--',''));
-        return distance <= 5;
-      }
-
-      _getRoomsArray(count){
-        return new Array(count);
-      }
-
-      _incrementByOne(index){
-        return index + 1;
-      }
-
-      _scrollToCheckout(){
-        this.$.map._showThumbnail = true;
-        this.$.checkout.scrollIntoView();
-      }
-
-      _scrollToMainDescription(){
-        this.$.about.expandedDescription = true;
-        this.$.about.scrollIntoView();
-      }
-
-      _updatePrice(e){
-        const { room, amount } = e.detail;
-        if(!this._pricesArray){
-          this._pricesArray = new Array(this.count);
+          const distance = parseInt(distanceString.replace('--',''));
+          return distance <= 5;
         }
-        this._pricesArray[room] = amount;
-        this._calculatedCost =  this._pricesArray.reduce((sum, price) => {
-          sum = sum + price;
-          return sum;
-        },0);
-        debugger;
-      }
 
-      _getMapHeader(overview){
-        return {
-					name: 'THE WESTIN LAKE LAS VEGAS RESORT SPA',
-					address: '101 MONTELAGO BOULEVARD  HENDERSON',
-					rating: 5
-        };
-      }
+        _getRoomsArray(count){
+          return new Array(count);
+        }
 
-    };
+        _incrementByOne(index){
+          return index + 1;
+        }
 
-window.customElements.define(THotelDetails.is, THotelDetails);
-</script>
+        _scrollToCheckout(){
+          this.$.map._showThumbnail = true;
+          this.$.checkout.scrollIntoView();
+        }
+
+        _scrollToMainDescription(){
+          this.$.about.expandedDescription = true;
+          this.$.about.scrollIntoView();
+        }
+
+        _showMapView(){
+          this.$.map._showThumbnail = false;
+        }
+
+        _updatePrice(e){
+          const { room, amount } = e.detail;
+          if(!this._pricesArray){
+            this._pricesArray = new Array(this.count);
+          }
+          this._pricesArray[room] = amount;
+          this._calculatedCost =  this._pricesArray.reduce((sum, price) => {
+            sum = sum + price;
+            return sum;
+          },0);
+        }
+
+        _getMapHeader(overview){
+          return {
+            name: 'THE WESTIN LAKE LAS VEGAS RESORT SPA',
+            address: '101 MONTELAGO BOULEVARD  HENDERSON',
+            rating: 5
+          };
+        }
+
+      };
+
+      window.customElements.define(THotelDetails.is, THotelDetails);
+  </script>
 </dom-module>

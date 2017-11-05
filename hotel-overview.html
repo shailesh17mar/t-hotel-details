@@ -230,12 +230,11 @@
     _fireMapClick(e) {
       e.preventDefault();
       //TODO: fire event here
-      document.querySelector('t-hotel-map')._showThumbnail = false;
-      this.dispatchEvent(new CustomEvent('map-icon-clicked'));
+      this.dispatchEvent(new CustomEvent('map-icon-tap'));
     }
 
     _fireReserveClick(e) {
-      this.dispatchEvent(new CustomEvent('reserve-button-clicked'));
+      this.dispatchEvent(new CustomEvent('reserve-tap'));
     }
 
     _shareOnPlatform(e, selection){

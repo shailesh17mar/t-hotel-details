@@ -40,7 +40,7 @@ Example:
         line-height: 21px;
       }
       .toggle-header{
-        padding: 10px;
+        padding: 10px 24px;
         background: var(--shade-superlight);
         color: var(--shade-semidark);
         min-height: 50px;
@@ -96,7 +96,7 @@ Example:
         }
         .header > div {
           border-right: 1px solid var(--shade-superlight);
-          padding: 10px;
+          padding: 10px 24px;
         }
         hotel-room{
           padding: 0;
@@ -105,24 +105,37 @@ Example:
         hotel-room:last-of-type{
           margin-bottom: 0;
         }
+        .selection{
+          font-weight: 400;
+          font-size: 15px;
+          color: #000;
+        }
+
+        .selection span{
+          font-size: 14px;
+          color: var(--shade-semidark);
+        }
 
         .collapse-content{
-          padding: 15px 10px;
+          padding: 15px 24px;
+        }
+        .room-index{
+          display: inline-block;
         }
       }
     </style>
 
     <div class="toggle-header row-md">
       <template is="dom-if" if="[[!_isRoomSelected(selected)]]">
-        <div class="flex" >
-          <h3>[[resources.room]] [[index]]:</h3>
-          <p>[[resources.options]] for [[count]] [[resources.guests]]</p>
+        <div class="flex selection" >
+          <div class="room-index">[[resources.room]] [[index]]:</div>
+          <span>[[resources.options]] for [[count]] [[resources.guests]]</span>
         </div>
       </template>
       <template is="dom-if" if="[[_isRoomSelected(selected)]]">
-        <div class="flex">
-          <h3>[[resources.room]] [[index]]: [[_getAmenities(roomTypes, selected)]] | [[count]] [[resources.guests]]</h3>
-          <p>[[resources.options]]: [[_getAmenities(roomTypes, selected)]]</p>
+        <div class="flex selection">
+          <div>[[resources.room]] [[index]]: [[_getAmenities(roomTypes, selected)]] | [[count]] [[resources.guests]]</div>
+          <!-- <p>[[resources.options]]: [[_getAmenities(roomTypes, selected)]]</p> -->
         </div>
       </template>
       <div class="row price-row">
@@ -130,7 +143,7 @@ Example:
           <p>[[resources.room]] [[index]] [[resources.total]]:</p>
           <h3 class="price">[[_getTotalAmount(roomTypes, selected, nights )]]</h3>
         </template>
-        <a href="#" class="link-style" on-click="toggleCollapse">[[_getLabel(opened)]]</a>
+        <a href="#" class="link-style" on-click="toggleCollapse">[[resources.change]]</a>
       </div>
     </div>
 
@@ -196,10 +209,10 @@ Example:
       _getAmenities(roomTypes, selected){
         const { roomViews, bedDetails } = roomTypes[selected];
         if(roomViews && bedDetails){
-        return roomViews.join(' | ') + ' | ' + bedDetails.map( bed => `${bed.count} ${bed.desc}`).join(' | ');
-      }
-        return '';
+          return roomViews.join(' | ') + ' | ' + bedDetails.map( bed => `${bed.count} ${bed.desc}`).join(' | ');
         }
+        return '';
+      }
 
       toggleCollapse(e){
         e.preventDefault();
@@ -227,9 +240,9 @@ Example:
         );
       }
 
-_getLabel(opened){
-return opened? this.resources.close: this.resources.change;
-}
+      _getLabel(opened){
+        return opened? this.resources.close: this.resources.change;
+      }
 
       _getTotalAmount(roomTypes, selected, nights){
         if(selected >= 0){

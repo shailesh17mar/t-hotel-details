@@ -20,7 +20,9 @@
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
     "t-search": "nxtComponent/t-hotel-search",
     "web-animations-js": "web-animations/web-animations-js#^2.2",
-    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.1.0"
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.1.0",
+    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
+    "paper-input-place": "mlisook/paper-input-place#^1.9.5"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -46,6 +48,10 @@
     "iron-media-query": "^2.0.0",
     "iron-image": "^2.1.2",
     "app-layout": "1 - 2",
-    "paper-dialog": "^2.0.0"
+    "paper-dialog": "^2.0.0",
+    "iron-iconset-svg": "^2.0.0",
+    "iron-input": "^2.0.0",
+    "paper-spinner": "^2.0.0",
+    "iron-overlay-behavior": "^2.2.0"
   }
 }

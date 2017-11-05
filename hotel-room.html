@@ -1,6 +1,7 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <!--
 A comment describing this element
 
@@ -11,520 +12,605 @@ Example:
 Example:
 
 <my-elem>
-  <h2>Hello my-elem</h2>
+	<h2>Hello my-elem</h2>
 </my-elem>
 
 @demo demo/index.html
 -->
 <dom-module id="hotel-room">
-  <template>
-    <style include="hotel-details-styles">
-      :host {
-        --rating-icon-size: 14px;
-        --rating-ink-color: var(--shade-semidark);
-        --rating-icon-color: transparent;
-        --info-content: {
-          line-height: 1.2;
-        }
-        ;
-      }
+	<template>
+		<style include="hotel-details-styles">
+			:host {
+				--rating-icon-size: 14px;
+				--rating-ink-color: var(--shade-semidark);
+				--rating-icon-color: transparent;
+				--info-content: {
+					line-height: 1.2;
+				}
+				;
+			}
 
-      h3,
-      h5,
-      .daily-price {
-        font-size: 14px;
-        color: var(--shade-dark);
-      }
+			.policy-dialog{
+				max-width: 800px;
+			}
 
-      dl {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-wrap);
-        margin: 5px 0 10px 0;
-      }
+			.policy-dialog h2{
+				margin-top: 24px;
+				padding: 0 24px;
+			}
 
-      dd {
-        font-size: 12px;
-        color: var(--shade-semidark);
-        padding: 0 5px;
-        line-height: 18px;
-        border-right: 1px solid var(--shade-semidark);
-      }
+			.policy-dialog h3{
+				padding: 0 24px;
+			}
 
-      dd:last-child {
-        border: 0;
-      }
+			.policy-dialog p{
+				padding: 0 24px;
+			}
 
-      dd:first-child {
-        padding-left: 0;
-      }
+			.daily-rates{
+				position: relative;
+				padding: 20px;
+				color: #9f9f9f;
+			}
 
-      .image-container {
-        height: 150px;
-        position: relative;
-      }
+			.daily-rates .rate-headline,h5{
+				margin-bottom: 20px;
+				color: #9f9f9f;
+				font-weight: 500;
+			}
 
-      figure {
-        width: 100%;
-        height: 100%;
-        background: no-repeat center center;
-        -webkit-background-size: contain;
-        background-size: cover;
-      }
+			.daily-rates .price{
+				color: var(--shade-dark);	
+				font-weight: 500;
+			}
+			.daily-rates .day{
+				font-weight: 500;
+			}
+			.daily-rates .week{
+				color: var(--shade-dark);	
+				margin-bottom: 20px;
+				font-weight: 500;
+			}
 
-      #clickImage {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        text-decoration: none;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
-      }
+			h3,
+			h5,
+			.daily-price {
+				font-size: 14px;
+				color: var(--shade-dark);
+			}
 
-      #imgButton {
-        background: var(--link-color);
-        color: #fff;
-        opacity: 0.54;
-        border-radius: 50%;
-      }
+			dl {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				@apply(--layout-wrap);
+				margin: 5px 0 10px 0;
+			}
 
-      .offer-info,
-      .demand-info {
-        color: var(--app-red-color);
-        line-height: 14px;
-        margin: 6px 0;
-        font-weight: 500;
-      }
+			dd {
+				font-size: 12px;
+				color: var(--shade-semidark);
+				padding: 0 5px;
+				line-height: 18px;
+				border-right: 1px solid var(--shade-semidark);
+			}
 
-      .amenities-info {
-        color: var(--shade-semidark);
-        line-height: 18px;
-        margin: 6px 0;
-      }
+			dd:last-child {
+				border: 0;
+			}
 
-      .discount {
-        background: var(--app-red-color);
-        padding: 5px;
-        color: var(--discount-color, #fff);
-        border-radius: 2px;
-        line-height: 30px;
-      }
+			dd:first-child {
+				padding-left: 0;
+			}
 
-      .tags{
-        background: var(--app-green-color, #50af54 );
-        padding: 5px;
-        color: var(--discount-color, #fff);
-        border-radius: 2px;
-        line-height: 30px;
-      }
+			.image-container {
+				height: 150px;
+				position: relative;
+			}
 
-      .originalPrice {
-        font-size: 16px;
-        text-decoration: line-through;
-        color: var(--shade-semidark);
-        margin-left: 10px;
-      }
+			figure {
+				width: 100%;
+				height: 100%;
+				background: no-repeat center center;
+				-webkit-background-size: contain;
+				background-size: cover;
+			}
 
-      .dailybtn {
-        position: relative;
-      }
+			#clickImage {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				text-decoration: none;
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				@apply(--layout-center-justified);
+			}
 
-      #dailyRateButton {
-        color: var(--shade-semidark);
-      }
+			#imgButton {
+				background: var(--link-color);
+				color: #fff;
+				opacity: 0.54;
+				border-radius: 50%;
+			}
 
-      .arrow-up {
-        position: absolute;
-        bottom: -12px;
-        left: 5px;
-        width: 0;
-        height: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-bottom: 15px solid #d1d1d1;
-        z-index: 1;
-      }
+			.offer-info,
+			.demand-info {
+				color: var(--app-red-color);
+				line-height: 14px;
+				margin: 6px 0;
+				font-weight: 500;
+			}
 
-      [slot="dropdown-content"] {
-        position: relative;
-        padding: 20px;
-        color: var(--shade-dark);
-        <!-- background: #d1d1d1; -->
-      }
+			.amenities-info {
+				color: var(--shade-semidark);
+				line-height: 18px;
+				margin: 6px 0;
+			}
 
-      .daily-item {
-        @apply(--layout-flex);
-        min-width: 40px;
-      }
+			.discount {
+				background: var(--app-red-color);
+				padding: 5px;
+				color: var(--discount-color, #fff);
+				border-radius: 2px;
+				line-height: 30px;
+			}
 
-      .link-style{
-        color: blue;
-      }
+			.tags{
+				background: var(--app-green-color, #50af54 );
+				padding: 5px;
+				color: var(--discount-color, #fff);
+				border-radius: 2px;
+				line-height: 30px;
+			}
 
-      .base-price {
-        font-size: 18px;
-        line-height: 38px;
-        color: var(--shade-dark);
-        font-weight: 500;
-      }
+			.original-price {
+				font-size: 16px;
+				text-decoration: line-through;
+				color: var(--shade-semidark);
+				margin: 0 10px;
+			}
 
-      .discounted-price {
-        color: var(--app-red-color);
-      }
+			.dailybtn {
+				position: relative;
+				line-height: 32px;
+				height: 20px;
+padding: 0;
+			}
 
-      .avg-daily-info {
-        font-size: 12px;
-        color: var(--shade-light);
-        transform: translateY(-10px);
-      }
+			#dailyRateButton {
+				color: var(--shade-semidark);
+			}
 
-      .extra-discount-info {
-        margin: 5px 0;
-        line-height: 2;
-        font-size: 12px;
-      }
+			.arrow-up {
+				position: absolute;
+				bottom: -12px;
+				left: 5px;
+				width: 0;
+				height: 0;
+				border-left: 15px solid transparent;
+				border-right: 15px solid transparent;
+				border-bottom: 15px solid #d1d1d1;
+				z-index: 1;
+			}
 
-      .extra-discount-info .discount {
-        line-height: 24px;
-      }
+			[slot="dropdown-content"] {
+				/* position: relative; */
+				/* padding: 20px; */
+				/* color: var(--shade-dark); */
+				<!-- background: #d1d1d1; -->
+			}
 
-      .price-container {
-        @apply(--layout-start);
-      }
+			.daily-item {
+				@apply(--layout-flex);
+				min-width: 40px;
+			}
 
-      .price-container > div {
-        @apply(--layout-flex);
-      }
+			.link-style{
+				color: blue;
+			}
+			paper-button.link {
+				color: var(--paper-blue-900);
+				--paper-button-ink-color: var(--paper-blue-900);
+				text-transform: capitalize;
+				padding-left: 0;
+				margin-left: 0;
+			}
 
-      .final-price {
-        color: var(--shade-dark);
-        font-size: 24px;
-        line-height: 38px;
-      }
+			.base-price {
+				font-size: 12px;
+				line-height: 38px;
+				color: var(--shade-dark);
+				font-weight: 500;
+			}
 
-      paper-button {
-        border: 1px solid var(--link-color);
-        color: var(--link-color);
-        margin: 0;
-      }
+			.discounted-price {
+				color: var(--app-red-color);
+			}
 
-      paper-button.active {
-        color: #fff;
-        background-color: var(--link-color);
-      }
+			.avg-night-info {
+				font-size: 12px;
+				color: var(--shade-light);
+				transform: translateX(-45px);
+				line-height: 15px;
+			}
 
-      @media (min-width: 550px) {
-        .box-shadow {
-          @apply(--container-shadow);
-        }
-        .main-container > div {
-          border-right: 1px solid var(--shade-superlight);
-          padding: 10px;
-        }
-        .base-price-container {
-          @apply(--layout-end-justified);
-        }
-        .avg-daily-info {
-          transform: none;
-        }
-        .amenities-info {
-          font-size: 12px;
-          @apply(--layout-horizontal);
-          @apply(--layout-center);
-        }
-        .image-container {
-          height: 100px;
-          max-width: 250px;
-        }
-        .amenities-info iron-icon {
-          width: 8px;
-          min-width: 8px;
-          height: 8px;
-          min-height: 8px;
-          background: var(--trust-you-green-color);
-          color: #fff;
-          margin-right: 10px;
-          border-radius: 50%;
-          padding: 2px;
-        }
-      }
-      @media (min-width: 1024px){
-        .image-container {
-          height: 120px;
-        }
-      }
-    </style>
+			.avg-daily-info {
+				font-size: 12px;
+				color: var(--shade-light);
+				transform: translateX(-45px);
+				line-height: 15px;
+			}
 
-    <div class="main-container box-shadow room-grid">
-      <div class="hotel-details-container first">
-        <h3>[[room.desc]]</h3>
-        <dl>
-          <dd>[[_getString(room.bedDetails, ' | ', 'desc')]]</dd>
-          <dd>[[_getString(room.roomViews, ' | ')]]</dd>
-          <dd>[[room.adultOccupancy]] [[resources.guests]]</dd>
-        </dl>
-        <div hidden$="[[!room.images]]" class="image-container">
-          <figure id="image" style$="background-image:url('[[hotelImage]]')"></figure>
-          <a href="#" id="clickImage" on-click="_clickedImage">
-            <paper-icon-button tabindex="-1" id="imgButton" icon="icons:search"></paper-icon-button>
-          </a>
-        </div>
-        <p class="offer-info">[[room.roomRate.offer.desc]]</p>
-        <p class="amenities-info mobile-view">[[_getAmenitiesText(room)]], [[count]] [[resources.guests]]</p>
-        <div class="mobile-view">
-          <p class="demand-info">In demand - only [[room.availableRoomCount]] rooms left</p>
-          <p class="discount-info">
-            <span hidden$="[[!room.roomRate.offer.percentageDiscountOffer]]" class="discount">[[room.roomRate.offer.percentageDiscountOffer]]%</span>
-            <span class="originalPrice margin-r-small">[[room.roomRate.fare.currency]] [[room.roomRate.totalFare]]</span>
-          </p>
-          <div class="price-container row">
-            <div>
-              <div class="base-price-container row">
-                <p class$="base-price" >
-                  [[room.roomRate.fare.currency]] [[_getDiscountedPrice(room)]]
-                </p>
-                <paper-menu-button class="dailybtn" vertical-align="top" vertical-offset="50" >
-                  <paper-icon-button icon="info" slot="dropdown-trigger" id="dailyRateButton">
-                    <!-- <i class="arrow&#45;up" hidden$="[[!_menuOpened]]"></i> -->
-                  </paper-icon-button>
-                  <div slot="dropdown-content">
-                    <h5 class="rate-headline">[[resources.dailyRates]]</h5>
-                    <template is="dom-repeat" items="[[_getWeeks(room.roomRate.dailyRate)]]" as="week">
-                      <p>[[_incrementByOne(resources.week)]] [[index]]</p>
-                      <div class="row">
-                        <template is="dom-repeat" items="[[week]]">
-                          <div class="daily-item">
-                            <p class="daily-days">[[item.day]]</p>
-                            <p class="daily-price">[[this.room.roomRate.fare.currency]] [[item.amount]]</p>
-                          </div>
-                        </template>
-                      </div>
-                    </template>
-                  </div>
-                </paper-menu-button>
-              </div>
-              <p class="avg-daily-info">[[resources.averageNightFare]]</p>
-              <p hidden$="[[!isPrepaid]]" class="extra-discount-info"><span class="tags ">[[resources.isPrepaid]]</span></p>
-              <p hidden$="[[_hideIfPenaltyExists(room.roomRate.cancellationPolicy)]]" class="extra-discount-info"><span class="tags ">[[resources.freeCancellation]]</span></p>
-            </div>
-            <div class="right-container text-right">
-              <h4 class="final-price">
-                [[room.roomRate.fare.currency]] [[_getDiscountedPrice(room)]]
-              </h4>
-              <p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
-              <paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
-                <span hidden$="[[selected]]">[[resources.select]]</span>
-                <span hidden$="[[!selected]]">[[resources.selected]]</span>
-              </paper-button>
-            </div>
-          </div>
-        </div>
-        <template is="dom-if" if="[[room.roomRate.cancellationPolicy]]">
-          <hotel-details-info class="avg-daily-info" no-heading id="text" text-content="[[room.roomRate.cancellationPolicy.text]]" collapse-length="150"></hotel-details-info>
-        </template>
-        <template is="dom-if" if="[[room.roomRate.policies.length]]">
-          <a class="link-style" on-click="_togglePolicyDialog">[[resources.roomPolicy]]</a>
-        </template>
-      </div>
-      <div class="not-mobile text-center second">
-        <star-rating class="margin-b" icon="accessibility" rating="[[count]]" hide-unselected></star-rating>
-        <p class="guest-count">
-          [[count]] [[resources.guests]]
-        </p>
-      </div>
-      <div class="not-mobile third">
-        <ul>
-          <template is="dom-repeat" item="[[_getAmenities(amenities)]]">
-            <li class="amenities-info">
-              <iron-icon icon="icons:done"></iron-icon>
-              <span>[[item.name]]</span>
-            </li>
-          </template>
-        </ul>
-      </div>
-      <div class="not-mobile text-right fourth">
-        <p class="demand-info">In demand - only [[room.availableRoomCount]] rooms left</p>
-        <p class="discount-info">
-          <div class="base-price-container">
-            <span hidden$="[[!room.roomRate.discount.percentageDiscountOffer]]" class="discount">[[room.roomRate.discount.percentageDiscountOffer]]%</span>
-            <span class$="[[_crossIfDiscountPresent(room.roomRate.discount)]]">[[room.roomRate.fare.currency]] [[room.roomRate.fare.totalFare]]</span>
-            <paper-menu-button opened="{{_menuOpened}}" class="dailybtn no-spacing-right"  horizontal-align="right" icon="info" vertical-offset="50" >
-              <paper-icon-button slot="dropdown-trigger" icon="info" id="dailyRateButton"> </paper-icon-button>
-              <div slot="dropdown-content" class="text-left">
-                <h5 class="rate-headline">[[resources.dailyRates]]</h5>
-                <template is="dom-repeat" items="[[_getWeeks(room.roomRate.dailyRate)]]" as="week">
-                  <p>[[resources.week]] [[index]]</p>
-                  <div class="row">
-                    <template is="dom-repeat" items="[[week]]">
-                      <div class="daily-item">
-                        <p class="daily-days">[[item.day]]</p>
-                        <p class="daily-price">[[this.room.roomRate.fare.currency]] [[item.amount]]</p>
-                      </div>
-                    </template>
-                  </div>
-                </template>
-              </div>
-            </paper-menu-button>
-          </div>
-        </p>
-        <p class="avg-daily-info">[[resources.averageNightFare]]</p>
-      </div>
-      <div class="not-mobile price-view last">
-        <div class="price-container row">
-          <div class="right-container text-right">
-            <h4 class="final-price">
-              [[room.roomRate.fare.currency]] [[_getDiscountedPrice(room)]]
-            </h4>
-            <p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
-            <paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
-              <span hidden$="[[selected]]">[[resources.select]]</span>
-              <span hidden$="[[!selected]]">[[resources.selected]]</span>
-            </paper-button>
-            <p class="extra-discount-info" hidden$="[[!isPrepaid]]"><span class="tags"> [[resources.isPrepaid]]</span></p>
-            <p class="extra-discount-info" hidden$="[[_hideIfPenaltyExists(room.roomRate.cancellationPolicy)]]"><span class="tags">[[resources.freeCancellation]]</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
+			.extra-discount-info {
+				margin: 5px 0;
+				line-height: 2;
+				font-size: 12px;
+			}
 
-    <paper-dialog opened="{{_isDialogOpen}}" always-on-top with-backdrop>
-      <h2>[[resources.roomPolicy]]</h2>
-      <paper-dialog-scrollable>
-        <template is="dom-repeat" items="[[room.roomRate.policies]]">
-          <p>[[item.text]]</p>
-        </template>
-      </paper-dialog-scrollable>
-    </paper-dialog>
-  </template>
-  <script>
-    class HotelRoom extends Polymer.Element {
+			.extra-discount-info .discount {
+				line-height: 24px;
+			}
 
-      static get is() {
-        return 'hotel-room';
-      }
+			.price-container {
+				@apply(--layout-start);
+			}
 
-      static get properties() {
-        return {
-          hotelImage: {
-            type: String,
-            value: 'http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_004.jpg'
-          },
-          _isDialogOpen: {
-            type: Boolean,
-            value: false
-          },
-          index: Number,
-          room: {
-            type: Object,
-            value: {}
-          },
-          nights: {
-            type: Number,
-            value: 1
-          },
-          count: Number,
-          amenities: Array,
-          selected: {
-            type:Boolean,
-            value: false
-          },
-          _amenitiesCategories: {
-            type: Array,
-            value: [ 'television', 'swimming pool', 'internet']
-          } 
-        };
-      }
+			.price-container > div {
+				@apply(--layout-flex);
+			}
 
-      _findPriceDiscount(discount) {
-        return discount ? 'discounted-price' : '';
-      }
+			.discounted-price {
+				color: var(--shade-semidark);
+				vertical-align: middle;
+			}
 
-      _hideIfPenaltyExists(cancellationPolicy){
-        return (!cancellationPolicy || !cancellationPolicy.penaltyRules  || !cancellationPolicy.penaltyRules.length === 0);
-      }
+			.final-price {
+				color: var(--shade-dark);
+				font-size: 24px;
+				line-height: 32px;
+				display: inline-block;
+				vertical-align: middle;
+			}
 
-      _getString(list, character, key){
-        if(list && list.length > 0){
-          if(key){
-            return list.map(item => `${item.count} ${ item[key] }`).join(character);
-          }
-          else{
-            return list.join(character);
-          }
-        }
-      }
+			paper-button.select {
+				border: 1px solid var(--link-color);
+				color: var(--link-color);
+				margin: 0;
+			}
 
-      _getAmenities(amenities){
-        return amenities.filter(amenity => {
-          return amenity.category && this._amenitiesCategories.indexOf(amenity.category.toLowerCase() >= 0);
-        });
-      }
+			paper-button.active.select {
+				color: #fff;
+				background-color: var(--link-color);
+			}
 
-      _getAmenitiesText(room){
-        const { roomViews, bedDetails } = room;
-        return (roomViews || []).join(', ') + ', ' + (bedDetails || []).map( bed => `${bed.count} #{bed.description}`).join(', ');
-      }
+			@media (min-width: 550px) {
+				.box-shadow {
+					@apply(--container-shadow);
+				}
+				.main-container > div {
+					border-right: 1px solid var(--shade-superlight);
+					padding: 24px;
+				}
+				.base-price-container {
+					@apply(--layout-end-justified);
+font-size: 12px;
+				}
+				.avg-daily-info {
+					transform: none;
+				}
+				.amenities-info {
+					font-size: 12px;
+					@apply(--layout-horizontal);
+					@apply(--layout-center);
+				}
+				.image-container {
+					height: 100px;
+					max-width: 250px;
+				}
+				.amenities-info iron-icon {
+					width: 8px;
+					min-width: 8px;
+					height: 8px;
+					min-height: 8px;
+					background: var(--trust-you-green-color);
+					color: #fff;
+					margin-right: 10px;
+					border-radius: 50%;
+					padding: 2px;
+				}
+			}
+			@media (min-width: 1024px){
+				.image-container {
+					height: 120px;
+				}
+			}
+		</style>
 
-      _clickedImage(e) {
-        e.preventDefault();
-        this.dispatchEvent(new CustomEvent('room-image-clicked', this.room));
-      }
+		<div class="main-container box-shadow room-grid">
+			<div class="hotel-details-container first">
+				<h3>[[room.desc]]</h3>
+				<dl>
+					<dd>[[_getString(room.bedDetails, ' | ', 'desc')]]</dd>
+					<dd>[[_getString(room.roomViews, ' | ')]]</dd>
+					<dd>[[room.adultOccupancy]] [[resources.guests]]</dd>
+				</dl>
+				<div hidden$="[[!room.images]]" class="image-container">
+					<figure id="image" style$="background-image:url('[[hotelImage]]')"></figure>
+					<a href="#" id="clickImage" on-click="_clickedImage">
+						<paper-icon-button tabindex="-1" id="imgButton" icon="icons:search"></paper-icon-button>
+					</a>
+				</div>
+				<p class="offer-info">[[room.roomRate.offer.desc]]</p>
+				<p class="amenities-info mobile-view">[[_getAmenitiesText(room)]], [[count]] [[resources.guests]]</p>
+				<div class="mobile-view">
+					<p class="demand-info" hidden$="[[_isGreaterThanFive(room.availableRoomCount)]]">In demand - only [[room.availableRoomCount]] rooms left</p>
+					<p class="discount-info">
+						<span hidden$="[[!room.roomRate.offer.percentageDiscountOffer]]" class="discount">[[room.roomRate.offer.percentageDiscountOffer]]%</span>
+						<span class="original-price margin-r-small">[[room.roomRate.fare.currency]][[room.roomRate.totalFare]]</span>
+					</p>
+					<div class="price-container row">
+						<div>
+							<div class="base-price-container row">
+								<p class$="base-price" >
+									[[room.roomRate.fare.currency]][[_getDiscountedPrice(room)]]
+								</p>
+								<paper-menu-button class="dailybtn" vertical-align="top" vertical-offset="50" >
+									<paper-icon-button icon="info" slot="dropdown-trigger" id="dailyRateButton">
+										<!-- <i class="arrow&#45;up" hidden$="[[!_menuOpened]]"></i> -->
+									</paper-icon-button>
+									<div slot="dropdown-content" class="daily-rates">
+										<h5 class="rate-headline">[[resources.dailyRates]]</h5>
+										<template is="dom-repeat" items="[[_getWeeks(room.roomRate.dailyRate)]]" as="week">
+											<p class="week">[[resources.week]] [[incrementByOne(index)]]</p>
+											<div class="row">
+												<template is="dom-repeat" items="[[week]]">
+													<div class="daily-item">
+														<p class="day">[[item.day]]</p>
+														<p class="price">[[room.roomRate.fare.currency]][[item.amount]]</p>
+													</div>
+												</template>
+											</div>
+										</template>
+									</div>
+								</paper-menu-button>
+							</div>
+							<p class="avg-night-info">[[resources.averageNightFare]]</p>
+							<p hidden$="[[!isPrepaid]]" class="extra-discount-info"><span class="tags ">[[resources.isPrepaid]]</span></p>
+							<p hidden$="[[!room.hasFreeCancellation]]" class="extra-discount-info"><span class="tags ">[[resources.freeCancellation]]</span></p>
+							<paper-spinner-lite active="[[_showCancellationLoader(room.hasFreeCancellation)]]" class="orange"></paper-spinner-lite>
+						</div>
+						<div class="right-container text-right">
+							<h4 class="final-price">
+								[[room.roomRate.fare.currency]][[_getDiscountedPrice(room)]]
+							</h4>
+							<p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
+							<paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
+								<span hidden$="[[selected]]">[[resources.select]]</span>
+								<span hidden$="[[!selected]]">[[resources.selected]]</span>
+							</paper-button>
+						</div>
+					</div>
+				</div>
+				<template is="dom-if" if="[[room.roomRate.cancellationPolicy]]">
+					<hotel-details-info class="avg-daily-info" no-heading id="text" text-content="[[room.roomRate.cancellationPolicy.text]]" collapse-length="150"></hotel-details-info>
+				</template>
+				<template is="dom-if" if="[[room.roomRate.policies.length]]">
+					<paper-button class="link" on-click="_togglePolicyDialog">[[resources.roomPolicy]]</paper-button>
+				</template>
+			</div>
+			<div class="not-mobile text-center second">
+				<star-rating class="margin-b" icon="accessibility" rating="[[count]]" hide-unselected></star-rating>
+				<p class="guest-count">
+					[[room.adultOccupancy]] [[resources.guests]]
+				</p>
+			</div>
+			<div class="not-mobile third">
+				<ul>
+					<template is="dom-repeat" item="[[_getAmenities(amenities)]]">
+						<li class="amenities-info">
+							<iron-icon icon="icons:done"></iron-icon>
+							<span>[[item.name]]</span>
+						</li>
+					</template>
+				</ul>
+			</div>
+			<div class="not-mobile text-right fourth">
+				<p class="demand-info" hidden$="[[_isGreaterThanFive(room.availableRoomCount)]]">In demand - only [[room.availableRoomCount]] rooms left</p>
+				<p class="discount-info">
+					<div class="base-price-container">
+						<span hidden$="[[!room.roomRate.offer.percentageDiscountOffer]]" class="discount">-[[room.roomRate.offer.percentageDiscountOffer]]%</span>
+						<span hidden$="[[!room.roomRate.offer.percentageDiscountOffer]]" class$="[[_crossIfDiscountPresent(room.roomRate.offer)]]">[[room.roomRate.fare.currency]][[room.roomRate.fare.totalFare]]</span>
+						<h4 class="final-price discounted" hidden$="[[!room.roomRate.fare.totalDiscount]]">[[room.roomRate.fare.currency]][[_getDiscountedPrice(room)]]</h4>
+						<paper-menu-button opened="{{_menuOpened}}" class="dailybtn no-spacing-right"  horizontal-align="right" icon="info" vertical-offset="50" >
+							<paper-icon-button slot="dropdown-trigger" icon="info" id="dailyRateButton"> </paper-icon-button>
+							<div slot="dropdown-content" class="text-left daily-rates">
+								<h5 class="rate-headline">[[resources.dailyRates]]</h5>
+								<template is="dom-repeat" items="[[_getWeeks(room.roomRate.dailyRate)]]" as="week">
+									<p class="week">[[resources.week]] [[incrementByOne(index)]]</p>
+									<div class="row">
+										<template is="dom-repeat" items="[[week]]">
+											<div class="daily-item">
+												<p class="day">[[item.day]]</p>
+												<p class="price">[[room.roomRate.fare.currency]][[item.amount]]</p>
+											</div>
+										</template>
+									</div>
+								</template>
+							</div>
+						</paper-menu-button>
+					</div>
+				</p>
+				<p class="avg-night-info">[[resources.averageNightFare]]</p>
+			</div>
+			<div class="not-mobile price-view last">
+				<div class="price-container row">
+					<div class="right-container text-right">
+						<h4 class="final-price">
+							[[room.roomRate.fare.currency]][[_getDiscountedPrice(room)]]
+						</h4>
+						<p class="avg-daily-info">[[nights]] [[resources.nightFare]]</p>
+						<paper-button class$="[[_getToggleState(selected)]]" on-click="_fireSelectionChanged">
+							<span hidden$="[[selected]]">[[resources.select]]</span>
+							<span hidden$="[[!selected]]">[[resources.selected]]</span>
+						</paper-button>
+						<p class="extra-discount-info" hidden$="[[!isPrepaid]]"><span class="tags"> [[resources.isPrepaid]]</span></p>
+						<!-- <p class="extra&#45;discount&#45;info" hidden$="[[_hideIfPenaltyExists(room.roomRate.cancellationPolicy)]]"><span class="tags">[[resources.freeCancellation]]</span></p> -->
+						<p hidden$="[[!room.hasFreeCancellation]]" class="extra-discount-info"><span class="tags ">[[resources.freeCancellation]]</span></p>
+						<paper-spinner-lite active="[[_showCancellationLoader(room.hasFreeCancellation)]]" class="orange"></paper-spinner-lite>
+					</div>
+				</div>
+			</div>
+		</div>
 
-      _togglePolicyDialog(){
-        this._isDialogOpen = !this._isDialogOpen;
-      }
+		<paper-dialog class="policy-dialog" opened="{{_isDialogOpen}}" always-on-top with-backdrop>
+			<h2>[[resources.policy]]</h2>
+			<paper-dialog-scrollable>
+				<template is="dom-repeat" items="[[room.roomRate.policies]]">
+					<h3>[[item.type]] [[resources.policy]]</h3>
+					<p>[[item.text]]</p>
+				</template>
+			</paper-dialog-scrollable>
+		</paper-dialog>
+	</template>
+	<script>
+		class HotelRoom extends Polymer.Element {
 
-      _crossIfDiscountPresent(discount){
-        return (discount && discount.percentageDiscountOffer)? 'originalPrice': null;
-      }
+			static get is() {
+				return 'hotel-room';
+			}
 
-      _incrementByOne(index){
-        return index +1;
-      }
+			static get properties() {
+				return {
+					hotelImage: {
+						type: String,
+						value: 'http://d3mj096p5q0e20.cloudfront.net/fi/HBD/55610/043509a_hb_f_004.jpg'
+					},
+					_isDialogOpen: {
+						type: Boolean,
+						value: false
+					},
+					index: Number,
+					room: {
+						type: Object,
+						value: {}
+					},
+					nights: {
+						type: Number,
+						value: 1
+					},
+					count: Number,
+					amenities: Array,
+					selected: {
+						type:Boolean,
+						value: false
+					},
+					_amenitiesCategories: {
+						type: Array,
+						value: [ 'television', 'swimming pool', 'internet']
+					} 
+				};
+			}
 
-      _getDiscountedPrice(room){
-        return room.roomRate.fare.totalFare - room.roomRate.fare.totalDiscount;
-      }
+			_findPriceDiscount(discount) {
+				return discount ? 'discounted-price' : '';
+			}
 
-      _getWeeks(dailyRates){
-        let weeks = [];
-        const DAYS = {
-          0: 'Sun',
-          1: 'Mon',
-          2: 'Tue',
-          3: 'Wed',
-          4: 'Thu',
-          5: 'Fri',
-          6: 'Sat'
-        };
-        for (var i=0,j=dailyRates.length; i<j; i+=6) {
-          const week = dailyRates.slice(i,i+6);
-          weeks.push(week.map(dailyRate => {
-            const date = new Date(dailyRate.date);
-            const day = DAYS[date.getDay()];
-            return { day, amount: dailyRate.amount};
-          }));
-        }
+			_showCancellationLoader(hasFreeCancellation){
+				if(hasFreeCancellation === undefined)
+				{
+					// this.dispatchEvent(new CustomEvent('get-free-cancellation', this.room.id));
+				}
+				return hasFreeCancellation === undefined;
+			}
 
-        return weeks;
-      }
+			_hideIfPenaltyExists(cancellationPolicy){
+				return (!cancellationPolicy || !cancellationPolicy.penaltyRules  || !cancellationPolicy.penaltyRules.length === 0);
+			}
 
-        _getToggleState(selected){
-          return selected? 'active': null;
-        }
+			_getString(list, character, key){
+				if(list && list.length > 0){
+					if(key){
+						return list.map(item => `${item.count} ${ item[key] }`).join(character);
+					}
+					else{
+						return list.join(character);
+					}
+				}
+			}
 
-        _fireSelectionChanged(e){
-          this.dispatchEvent(new CustomEvent('selection-change', {
-            detail: {
-              selected: !this.selected 
-            }
-          }));
-        }
+			_getAmenities(amenities){
+				return amenities.filter(amenity => {
+					return amenity.category && this._amenitiesCategories.indexOf(amenity.category.toLowerCase() >= 0);
+				});
+			}
 
-      }
-        window.customElements.define(HotelRoom.is, HotelRoom);
-  </script>
+			_getAmenitiesText(room){
+				const { roomViews, bedDetails } = room;
+				return (roomViews || []).join(', ') + ', ' + (bedDetails || []).map( bed => `${bed.count} #{bed.description}`).join(', ');
+			}
+
+			_clickedImage(e) {
+				e.preventDefault();
+				this.dispatchEvent(new CustomEvent('room-image-clicked', this.room));
+			}
+
+			_togglePolicyDialog(){
+				this._isDialogOpen = !this._isDialogOpen;
+			}
+
+			_crossIfDiscountPresent(discount){
+				return (discount && discount.percentageDiscountOffer)? 'original-price discounted-price': 'discounted-price';
+			}
+
+			_incrementByOne(index){
+				return index +1;
+			}
+
+			_getDiscountedPrice(room){
+				return room.roomRate.fare.totalFare - room.roomRate.fare.totalDiscount;
+			}
+
+			_getWeeks(dailyRates){
+				let weeks = [];
+				const DAYS = {
+					0: 'Sun',
+					1: 'Mon',
+					2: 'Tue',
+					3: 'Wed',
+					4: 'Thu',
+					5: 'Fri',
+					6: 'Sat'
+				};
+				for (var i=0,j=dailyRates.length; i<j; i+=6) {
+					const week = dailyRates.slice(i,i+6);
+					weeks.push(week.map(dailyRate => {
+						const date = new Date(dailyRate.date);
+						const day = DAYS[date.getDay()];
+						return { day, amount: dailyRate.amount};
+					}));
+				}
+
+				return weeks;
+			}
+
+			_getToggleState(selected){
+				return selected? 'active select': 'select';
+			}
+
+			_isGreaterThanFive(roomCount){
+				return roomCount > 5 || roomCount === 0;
+			}
+
+			_fireSelectionChanged(e){
+				this.dispatchEvent(new CustomEvent('selection-change', {
+					detail: {
+						selected: !this.selected 
+					}
+				}));
+			}
+
+		}
+window.customElements.define(HotelRoom.is, HotelRoom);
+	</script>
 </dom-module>
